@@ -1,6 +1,126 @@
 <!DOCTYPE html>
 <html>
 
-    <h1>This is a test</h1>
+    <head>
+        <style>
+
+            .text {
+                text-align: center;
+                font-size:40px;
+                font-family: 'Roboto', sans-serif;
+            }
+
+            #output {
+                text-align: center;
+                font-size:40px;
+
+                color:red;
+            }
+
+            .camera-container {
+                /*Crop video*/
+                overflow:hidden;
+
+                /*Center content*/
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                
+                border-radius:30px;
+                width: 100%;
+            }
+
+            .camera-container-background {
+                background: rgb(47,205,33);
+                background: radial-gradient(circle, rgba(47,205,33,1) 0%, rgba(43,120,32,1) 100%); 
+                border-radius:30px;
+            }
+
+            #camera {
+                width:500px;
+                height:500px;
+                /*Video completely covers .camera-container's element*/
+                object-fit:cover;
+
+                background: rgb(33,139,205);
+                background: radial-gradient(circle, rgba(33,139,205,1) 0%, rgba(32,39,120,1) 100%); 
+                border-radius:30px;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        
+        <h1 class="text">Camera Stream</h1>
+        
+        <script src="https://unpkg.com/jsqr"></script> <!-- Import jsQR library -->
+        
+        <!--Font Library -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap" rel="stylesheet">
+        <!----------------->
+
+        <div class="camera-container">
+            <div class="camera-container-background">
+                <video id="camera"></video> <!-- Display camera stream to user -->
+            </div>
+        </div>
+
+        <h1 class="text" id="output">Awaiting camera permission</h1>
+
+        <script>
+
+            //console.log(jsQR); //jsQR library successfully loaded?
+            let stream;
+
+            navigator.mediaDevices.getUserMedia({video:true}).then((streamResult) => {
+                stream = streamResult;
+                const videoStream = document.getElementById("camera");
+                videoStream.srcObject = stream;
+                videoStream.play();
+
+                document.getElementById("output").innerText = "QR Code not detected"; //Update #output from 'awaiting camera' to 'no QR code found'
+            
+
+                videoStream.addEventListener("play", () => { //Once video starts playing...
+                    const canvas = document.createElement("canvas"); //Display video stream onto canvas
+                    const renderingContext = canvas.getContext("2d"); //Rendering context as "2D"
+
+                    const frameAnalysis = () => {
+                        renderingContext.drawImage(videoStream, 0, 0, canvas.width, canvas.height); //Define height and width of frame + Draw frame to canvas.
+                        const imageData = renderingContext.getImageData(0,0, canvas.width, canvas.height); //Image data for canvas packaged into imageData.
+                        const code = jsQR(imageData.data, imageData.width, imageData.height); //jsQR function takes image data and returns object with QR info.
+
+                        //QR Code Found
+                        if (code) {
+                            console.log("The QR code was found: ", code.data); //Log data to console.
+                            
+                            //Inform user of success
+                            document.getElementById("output").innerText = code.data;
+                            document.getElementById("output").style.color = "green";
+                            stream.getTracks().forEach(track => track.stop()) //Terminate camera stream.
+                            videoStream.style.visibility = 'hidden'; //Once terminated, hide the container (otherwise the screen will be black).
+                            return;
+                        }
+                        //QR Code NOT Found (null object)
+                        else {
+                            console.log("The QR code was not found."); //Log error to console
+                        }
+
+                        requestAnimationFrame(frameAnalysis)
+                    };
+
+                    frameAnalysis(); //Loop
+
+                })}).catch((error) => { //Catch error if user does not allow permission.
+                console.error("Unable to access video stream."); //Change this later to put message on screen
+                document.getElementById("output").innerText = "Access to the camera has been denied"; //Inform user that we cannot access camera
+            })
+
+        </script>
+
+    </body>
 
 </html>
