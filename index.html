@@ -54,7 +54,7 @@
 
     <body>
         
-        <h1 class="text">Camera Stream v5</h1>
+        <h1 class="text">Camera Stream v6</h1>
         
         <script src="https://unpkg.com/jsqr"></script> <!-- Import jsQR library -->
         
@@ -81,7 +81,13 @@
                 stream = streamResult;
                 const videoStream = document.getElementById("camera");
                 videoStream.srcObject = stream;
+
+                videoStream.setAttribute('autoplay','');
+                videoStream.setAttribute('playsinline','');
+
                 videoStream.play(); //Video starts playing
+                
+                
 
                 videoStream.addEventListener("playing", () => { //Video play event... once video starts playing execute:
                     document.getElementById("output").innerText = "QR Code not detected"; //Update #output from 'awaiting camera' to 'no QR code found'
