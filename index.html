@@ -87,6 +87,7 @@
             
 
                 videoStream.addEventListener("play", () => { //Once video starts playing...
+                    document.getElementById("output").style.color = "pink";
                     const canvas = document.createElement("canvas"); //Display video stream onto canvas
                     const renderingContext = canvas.getContext("2d"); //Rendering context as "2D"
 
