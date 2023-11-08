@@ -77,6 +77,7 @@
 
             //console.log(jsQR); //jsQR library successfully loaded?
             let stream;
+            let terminate = false;
             startCamera('environment'); //Atempt to start rear camera
 
             function startCamera(facingMode) {
@@ -134,8 +135,13 @@
                             if (facingMode === "environment") {
                                 startCamera("user"); //Call function using front camera this time.
                             }
-                            //If all else fails, no camera is available.
-                            else 
+                            //If both rear and front camera fail, attempt to let browser use device default camera.
+                            else if (facingMode==="user")
+                            {
+                                startCamera();
+                                terminate = true;
+                            }
+                            else if (terminate === true) 
                             {
                                 document.getElementById("output").innerText = "No camera was detected on this device."; //Inform user that we cannot access camera
                             }
