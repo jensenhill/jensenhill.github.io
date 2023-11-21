@@ -1,0 +1,45 @@
+.text {
+    text-align: center;
+    font-size:40px;
+    font-family: 'Roboto', sans-serif;
+}
+
+#output {
+    text-align: center;
+    font-size:40px;
+
+    color:red;
+}
+
+.camera-container {
+    /*Crop video*/
+    overflow:hidden;
+
+    /*Center content*/
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    
+    border-radius:30px;
+    width: 100%;
+}
+
+.camera-container-background {
+    background: rgb(47,205,33);
+    background: radial-gradient(circle, rgba(47,205,33,1) 0%, rgba(43,120,32,1) 100%); 
+    border-radius:30px;
+}
+
+#camera {
+    width:500px;
+    height:500px;
+    /*Video completely covers .camera-container's element*/
+    object-fit:cover;
+
+    background: rgb(33,139,205);
+    background: radial-gradient(circle, rgba(33,139,205,1) 0%, rgba(32,39,120,1) 100%); 
+    border-radius:30px;
+
+    position:relative;
+    z-index:99;
+}
