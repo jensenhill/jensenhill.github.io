@@ -34,6 +34,9 @@ function startCamera(facingMode) {
                     document.getElementById("output").style.color = "green";
                     stream.getTracks().forEach(track => track.stop()) //Terminate camera stream.
                     videoStream.style.visibility = 'hidden'; //Once terminated, hide the container (otherwise the screen will be black).
+                    
+                    outputData(code.data); //Output the QR code's data to the user
+                    
                     return;
                 }
                 //QR Code NOT Found (null object)
@@ -71,3 +74,99 @@ function startCamera(facingMode) {
             }
         })
     }
+
+//Now we've scanned the QR code, we need to output the appropriate contents.
+function outputData(codeData) {
+
+    dataType = findType(codeData);
+    document.getElementById("output").innerText = codeData + " = " + dataType;
+}
+
+function findType(codeData) {
+    
+    //0 = URL
+    //1 = Email
+    //2 = Telephone Number
+    //3 = EPC
+    //4 = SMS
+    //5 = Maps
+    //6 = Calendar
+    //7 = Wi-Fi
+    //8 = Bookmark
+    //9 = Bit Coin
+    //10 = vCard
+    //11 = Me Card
+    //12 = Text
+
+
+    //https://
+    //http://
+
+    //0 - URL
+    if (codeData.substring(0,3).toUpperCase() == "WWW.") {
+        return 0;
+    } else if (codeData.substring(0,7).toUpperCase() == "HTTPS://") {
+        return 0;
+    } else if (codeData.substring(0,6).toUpperCase() == "HTTP://") {
+        return 0;
+    }
+
+    //1 - Email
+    if ((codeData.substring(0,6)).toUpperCase() == "MATMSG:") {
+        return 1;
+    } else {console.log("Email check failed.");}
+
+    //2 - Telephone Number
+    if ((codeData.substring(0,2)).toUpperCase() == "TEL:") {
+        return 2;
+    } else {console.log("Telephone Number check failed.");}
+
+    //3 - EPC
+    if ((codeData.substring(0,2)).toUpperCase() == "BCD") {
+        return 3;
+    } else {console.log("EPC check failed.");}
+
+    //4 - SMS
+    if ((codeData.substring(0,5)).toUpperCase() == "SMSTO:") {
+        return 4;
+    } else {console.log("SMS check failed.");}
+
+    //5 - Maps
+    if ((codeData.substring(0,3)).toUpperCase() == "GEO:") {
+        return 5;
+    } else {console.log("Maps check failed.");}
+
+    //6 - Calendar
+    if ((codeData.substring(0,11)).toUpperCase() == "BEGIN:VEVENT") {
+        return 6;
+    } else {console.log("Calendar check failed.");}
+
+    //7 - Wi-Fi
+    if ((codeData.substring(0,6)).toUpperCase() == "WIFI:T:") {
+        return 7;
+    } else {console.log("Wi-Fi check failed.");}
+
+    //8 - Bookmark
+    if ((codeData.substring(0,5)).toUpperCase() == "MEBKM:") {
+        return 8;
+    } else {console.log("Bookmark check failed.");}
+
+    //9 - Bitcoin
+    if ((codeData.substring(0,7)).toUpperCase() == "BITCOIN:") {
+        return 9;
+    } else {console.log("Bitcoin check failed.");}
+
+    //10 - vCard
+    if (codeData.substring(0,10) == "BEGIN:VCARD") {
+        return 10;
+    } else {console.log("vCard check failed.");}
+
+    //11 - Me Card
+    if (codeData.substring(0,6) == "MECARD:") {
+        return 11;
+    } else {console.log("Me Card check failed.");}
+
+    //12 - Text
+    return 12;
+
+}
