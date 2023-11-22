@@ -25,7 +25,9 @@ function startCamera(facingMode) {
                 const imageData = renderingContext.getImageData(0,0, canvas.width, canvas.height); //Image data for canvas packaged into imageData.
                 const code = jsQR(imageData.data, imageData.width, imageData.height); //jsQR function takes image data and returns object with QR info.
 
-                //QR Code Found
+                //====================================================================================================================================
+                //=====================================================   QR Code Found ==============================================================
+                //====================================================================================================================================
                 if (code) {
                     console.log("The QR code was found: ", code.data); //Log data to console.
                     
@@ -78,7 +80,25 @@ function startCamera(facingMode) {
 //Now we've scanned the QR code, we need to output the appropriate contents.
 function outputData(codeData) {
 
-    dataType = findType(codeData);
+    dataType = findType(codeData); //Find the data type of QR code contents.
+
+    switch(codeData) {
+        case 0: //URL
+        case 1: //Email
+        case 2: //Telephone Number
+        case 3: //EPC
+        case 4: //SMS
+        case 5: //Maps
+        case 6: //Calendar
+        case 7: //Wi-Fi
+        case 8: //Bookmark
+        case 9: //Bitcoin
+        case 10: //vCard
+        case 11: //Me Card
+        case 12: //Text
+        default: //Other (error)
+    }
+
     document.getElementById("output").innerText = codeData + " = " + dataType;
 }
 
@@ -98,10 +118,6 @@ function findType(codeData) {
     //11 = Me Card
     //12 = Text
 
-
-    //https://
-    //http://
-
     //0 - URL
     if (codeData.substring(0,3).toUpperCase() == "WWW.") {
         return 0;
@@ -109,62 +125,62 @@ function findType(codeData) {
         return 0;
     } else if (codeData.substring(0,6).toUpperCase() == "HTTP://") {
         return 0;
-    }
+    } else {console.log("0. URL check failed.");}
 
     //1 - Email
     if ((codeData.substring(0,6)).toUpperCase() == "MATMSG:") {
         return 1;
-    } else {console.log("Email check failed.");}
+    } else {console.log("1. Email check failed.");}
 
     //2 - Telephone Number
     if ((codeData.substring(0,2)).toUpperCase() == "TEL:") {
         return 2;
-    } else {console.log("Telephone Number check failed.");}
+    } else {console.log("2. Telephone Number check failed.");}
 
     //3 - EPC
     if ((codeData.substring(0,2)).toUpperCase() == "BCD") {
         return 3;
-    } else {console.log("EPC check failed.");}
+    } else {console.log("3. EPC check failed.");}
 
     //4 - SMS
     if ((codeData.substring(0,5)).toUpperCase() == "SMSTO:") {
         return 4;
-    } else {console.log("SMS check failed.");}
+    } else {console.log("4. SMS check failed.");}
 
     //5 - Maps
     if ((codeData.substring(0,3)).toUpperCase() == "GEO:") {
         return 5;
-    } else {console.log("Maps check failed.");}
+    } else {console.log("5. Maps check failed.");}
 
     //6 - Calendar
     if ((codeData.substring(0,11)).toUpperCase() == "BEGIN:VEVENT") {
         return 6;
-    } else {console.log("Calendar check failed.");}
+    } else {console.log("6. Calendar check failed.");}
 
     //7 - Wi-Fi
     if ((codeData.substring(0,6)).toUpperCase() == "WIFI:T:") {
         return 7;
-    } else {console.log("Wi-Fi check failed.");}
+    } else {console.log("7. Wi-Fi check failed.");}
 
     //8 - Bookmark
     if ((codeData.substring(0,5)).toUpperCase() == "MEBKM:") {
         return 8;
-    } else {console.log("Bookmark check failed.");}
+    } else {console.log("8. Bookmark check failed.");}
 
     //9 - Bitcoin
     if ((codeData.substring(0,7)).toUpperCase() == "BITCOIN:") {
         return 9;
-    } else {console.log("Bitcoin check failed.");}
+    } else {console.log("9. Bitcoin check failed.");}
 
     //10 - vCard
     if (codeData.substring(0,10) == "BEGIN:VCARD") {
         return 10;
-    } else {console.log("vCard check failed.");}
+    } else {console.log("10. vCard check failed.");}
 
     //11 - Me Card
     if (codeData.substring(0,6) == "MECARD:") {
         return 11;
-    } else {console.log("Me Card check failed.");}
+    } else {console.log("11. Me Card check failed.");}
 
     //12 - Text
     return 12;
