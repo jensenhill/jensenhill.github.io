@@ -83,6 +83,3 @@ function startCamera(facingMode) {
     }
 
     //WHERE outputData used to be
-    //Now we've scanned the QR code, we need to output the appropriate contents.
-
-

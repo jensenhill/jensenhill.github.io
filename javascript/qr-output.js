@@ -1,3 +1,4 @@
+//Now we've scanned the QR code, we need to output the appropriate contents.
 function outputData(codeData) {
 
     var dataType = parseInt(findType(codeData)); //Find the data type of QR code contents.
@@ -56,6 +57,7 @@ function outputData(codeData) {
     }
 }
 
+//Finding the type of data encoded in a QR code and returning the corresponding integer.
 function findType(codeData) {
     
     //0 = URL
@@ -148,7 +150,5 @@ function outputType(dataTypeText) {
     p.textContent = "Data Type: " + dataTypeText;
     document.body.appendChild(p);
 }
-
-
 
 export { outputData, findType, outputType };
