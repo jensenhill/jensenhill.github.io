@@ -40,9 +40,9 @@ function startCamera(facingMode) {
                     stream.getTracks().forEach(track => track.stop()) //Terminate camera stream.
                     videoStream.style.visibility = 'hidden'; //Once terminated, hide the container (otherwise the screen will be black).
                     
-                    removeStatus = document.getElementById("status");
+                    var removeStatus = document.getElementById("status");
                     removeStatus.remove(); //Remove the error status as QR successfully scanned.
-
+                    
                     outputData(code.data); //Output the QR code's data to the user
                     return;
                 }

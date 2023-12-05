@@ -1,12 +1,12 @@
 function outputData(codeData) {
 
-    dataType = parseInt(findType(codeData)); //Find the data type of QR code contents.
+    var dataType = parseInt(findType(codeData)); //Find the data type of QR code contents.
 
     switch(dataType) {
         case 0: //URL
             outputType("URL"); //Output the data type
 
-            weburl = document.createElement("a");
+            var weburl = document.createElement("a");
             weburl.href = codeData;
             weburl.textContent = codeData;
             weburl.classList.add("data-content");
@@ -143,7 +143,7 @@ function findType(codeData) {
 
 //Output the type of data. Called by outputData()
 function outputType(dataTypeText) {
-    p = document.createElement("p");
+    var p = document.createElement("p");
     p.id = "data-type";
     p.textContent = "Data Type: " + dataTypeText;
     document.body.appendChild(p);
