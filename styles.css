@@ -4,11 +4,31 @@
     font-family: 'Roboto', sans-serif;
 }
 
-#output {
+/* Element displaying the pre-scan status/errors */
+#status {
     text-align: center;
     font-size:40px;
 
     color:red;
+}
+
+/* Element displaying the QR Code data type */
+#data-type {
+    text-align: center;
+    font-size:40px;
+    font-family: 'Roboto', sans-serif;
+    color:green;
+}
+
+.data-content {
+    text-align: center;
+    font-size:30px;
+    font-family: 'Roboto', sans-serif;
+    color:green;
+}
+
+a.data-content {
+    color:rgb(0, 110, 255);
 }
 
 .camera-container {
