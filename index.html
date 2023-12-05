@@ -20,6 +20,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap" rel="stylesheet">
         <!----------------->
 
+        <!-- Container for the camera stream -->
         <div class="camera-container">
             <div class="camera-container-background">
                 <video id="camera"></video> <!-- Display camera stream to user -->
@@ -27,6 +28,11 @@
         </div>
 
         <h1 class="text" id="status">Awaiting camera permission</h1>
+
+        <!--Container for the QR code's data -->
+        <div class="data-container" id="data-container">
+            
+        </div>
 
         <script type="module" src="javascript/qr-scanner.js"></script>
 
