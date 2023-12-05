@@ -4,9 +4,6 @@ import { outputData, findType, outputType } from './qr-output.js';
 let stream;
 let terminate = false;
 
-//Is JavaScript executed?
-console.log("JAVA SCRIPT SUCCESSFULLY EXECUTED.")
-
 startCamera('environment'); //Atempt to start rear camera
 
 function startCamera(facingMode) {
