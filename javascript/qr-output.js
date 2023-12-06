@@ -2,7 +2,7 @@
 function outputData(codeData) {
 
     var dataType = parseInt(findType(codeData)); //Find the data type of QR code contents.
-    codeData = decodeURIComponent(codeData); //Replace ASCII encoding references with their ASCII character.
+    codeData = decodeURIComponent(codeData); //Replace ASCII encoding references with their ASCII character (if applicable)
 
     switch(dataType) {
         case 0: //URL
@@ -106,8 +106,10 @@ function outputData(codeData) {
             var sections = codeData.split(":"); //Split the string at each colon
             var mobileNumber = "Mobile Number: " + sections[1];
             outputLine(mobileNumber);
-            var mobileContents = "Message Contents: " + sections[2];
-            outputLine(mobileContents);
+            if ((codeData.split(":").length - 1) > 1) { //Does the SMS number contain a message?
+                var mobileContents = "Message Contents: " + sections[2];
+                outputLine(mobileContents);
+            }
 
             break;
 
@@ -126,13 +128,325 @@ function outputData(codeData) {
 
             break;
 
-        case 6: //Calendar
+        case 6: //Calendar -> Follows the .ics (iCalendar) format
             outputType("Calendar"); //Output the data type
             
+            codeData.toUpperCase();
+            var calendarIndex1; //Store the index of the first character in the line
+            var calendarIndex2; //Store the index of the final character in the line
+
+            //Event UID
+            if (codeData.indexOf("UID:") != -1) {
+                calendarIndex1 = codeData.indexOf("UID:") + 4;
+                calendarIndex2 = codeData.indexOf("\n",calendarIndex1);
+                outputLine("UID: " + codeData.substring(calendarIndex1,calendarIndex2));
+            }
+
+            //Event DTSTAMP
+            if (codeData.indexOf("DTSTAMP:") != -1) {
+                calendarIndex1 = codeData.indexOf("DTSTAMP:") + 8;
+                calendarIndex2 = codeData.indexOf("\n",calendarIndex1);
+                var date = new Date(Date.parse(codeData.substring(calendarIndex1,calendarIndex2)));
+
+                if (!isNaN(date)) //Was the date successfully converted?
+                {
+                    outputLine("Creation Date: " + date);
+                
+                }
+                else //Try a alternate format
+                {   
+                    var stringDate = codeData.substring(calendarIndex1,calendarIndex2);
+                    var year = stringDate.substring(0,4);
+                    var month = stringDate.substring(4,6);
+                    var day = stringDate.substring(6,8);
+                    var hour = stringDate.substring(9,11);
+                    var minute = stringDate.substring(11,13);
+                    var second = stringDate.substring(13,15);
+                    date = new Date(Date.UTC(year,month,day,hour,minute,second))
+                    if (!isNaN(date))
+                    {
+                        outputLine("Creation Date: " + date);
+                    }
+                    else
+                    {
+                        outputLine("Creation Date: " + codeData.substring(calendarIndex1,calendarIndex2));
+                    }
+                }
+            }
+
+            //Event CREATED
+            if (codeData.indexOf("CREATED:") != -1) {
+                calendarIndex1 = codeData.indexOf("CREATED:") + 8;
+                calendarIndex2 = codeData.indexOf("\n",calendarIndex1);
+                var date = new Date(Date.parse(codeData.substring(calendarIndex1,calendarIndex2)));
+
+                if (!isNaN(date)) //Was the date successfully converted?.
+                {
+                    outputLine("Created: " + date);
+                
+                }
+                else //Try a alternate format
+                {   
+                    var stringDate = codeData.substring(calendarIndex1,calendarIndex2);
+                    var year = stringDate.substring(0,4);
+                    var month = stringDate.substring(4,6);
+                    var day = stringDate.substring(6,8);
+                    var hour = stringDate.substring(9,11);
+                    var minute = stringDate.substring(11,13);
+                    var second = stringDate.substring(13,15);
+                    date = new Date(Date.UTC(year,month,day,hour,minute,second))
+                    if (!isNaN(date))
+                    {
+                        outputLine("Created: " + date);
+                    }
+                    else
+                    {
+                        outputLine("Created: " + codeData.substring(calendarIndex1,calendarIndex2));
+                    }
+                }
+            }
+
+            //Event DTSTART
+            if (codeData.indexOf("DTSTART:") != -1) {
+                calendarIndex1 = codeData.indexOf("DTSTART:") + 8;
+                calendarIndex2 = codeData.indexOf("\n",calendarIndex1);
+                var date = new Date(Date.parse(codeData.substring(calendarIndex1,calendarIndex2)));
+
+                if (!isNaN(date)) //Was the date successfully converted?.
+                {
+                    outputLine("Start: " + date);
+                
+                }
+                else //Try a alternate format
+                {   
+                    var stringDate = codeData.substring(calendarIndex1,calendarIndex2);
+                    var year = stringDate.substring(0,4);
+                    var month = stringDate.substring(4,6);
+                    var day = stringDate.substring(6,8);
+                    var hour = stringDate.substring(9,11);
+                    var minute = stringDate.substring(11,13);
+                    var second = stringDate.substring(13,15);
+                    date = new Date(Date.UTC(year,month,day,hour,minute,second))
+                    if (!isNaN(date))
+                    {
+                        outputLine("Start: " + date);
+                    }
+                    else
+                    {
+                        outputLine("Start: " + codeData.substring(calendarIndex1,calendarIndex2));
+                    }
+                }
+            }
+            
+
+            //Event DTEND
+            if (codeData.indexOf("DTEND:") != -1) {
+                calendarIndex1 = codeData.indexOf("DTEND:") + 6;
+                calendarIndex2 = codeData.indexOf("\n",calendarIndex1);
+                var date = new Date(Date.parse(codeData.substring(calendarIndex1,calendarIndex2)));
+
+                if (!isNaN(date)) //Was the date successfully converted?.
+                {
+                    outputLine("End: " + date);
+                
+                }
+                else //Try a alternate format
+                {   
+                    var stringDate = codeData.substring(calendarIndex1,calendarIndex2);
+                    var year = stringDate.substring(0,4);
+                    var month = stringDate.substring(4,6);
+                    var day = stringDate.substring(6,8);
+                    var hour = stringDate.substring(9,11);
+                    var minute = stringDate.substring(11,13);
+                    var second = stringDate.substring(13,15);
+                    date = new Date(Date.UTC(year,month,day,hour,minute,second))
+                    if (!isNaN(date))
+                    {
+                        outputLine("End: " + date);
+                    }
+                    else
+                    {
+                        outputLine("End: " + codeData.substring(calendarIndex1,calendarIndex2));
+                    }
+                }
+            }
+
+            //Event SUMMARY
+            if (codeData.indexOf("SUMMARY:") != -1) {
+                calendarIndex1 = codeData.indexOf("SUMMARY:") + 8;
+                calendarIndex2 = codeData.indexOf("\n",calendarIndex1);
+                outputLine("Summary: " + codeData.substring(calendarIndex1,calendarIndex2));
+            }
+
+            //Event CLASS
+            if (codeData.indexOf("CLASS:") != -1) {
+                calendarIndex1 = codeData.indexOf("CLASS:") + 6;
+                calendarIndex2 = codeData.indexOf("\n",calendarIndex1);
+                outputLine("Class: " + codeData.substring(calendarIndex1,calendarIndex2));
+            }
+
+            //Event CATEGORIES
+            if (codeData.indexOf("CATEGORIES:") != -1) {
+                calendarIndex1 = codeData.indexOf("CATEGORIES:") + 11;
+                calendarIndex2 = codeData.indexOf("\n",calendarIndex1);
+                outputLine("Categories: " + codeData.substring(calendarIndex1,calendarIndex2));
+            }
+
+            //Event TRANSP
+            if (codeData.indexOf("TRANSP:") != -1) {
+                calendarIndex1 = codeData.indexOf("TRANSP:") + 7;
+                calendarIndex2 = codeData.indexOf("\n",calendarIndex1);
+                outputLine("Transparency: " + codeData.substring(calendarIndex1,calendarIndex2));
+            }
+
+            //Event DESCRIPTION
+            if (codeData.indexOf("DESCRIPTION:") != -1) {
+                calendarIndex1 = codeData.indexOf("DESCRIPTION:") + 12;
+                calendarIndex2 = codeData.indexOf("\n",calendarIndex1);
+                outputLine("Description: " + codeData.substring(calendarIndex1,calendarIndex2));
+            }
+
+            //Event GEO
+            if (codeData.indexOf("GEO:") != -1) {
+                calendarIndex1 = codeData.indexOf("GEO:") + 4;
+                calendarIndex2 = codeData.indexOf("\n",calendarIndex1);
+                outputLine("Geo: " + codeData.substring(calendarIndex1,calendarIndex2));
+            }
+
+            //Event LAST-MOD
+            if (codeData.indexOf("LAST-MOD:") != -1) {
+                calendarIndex1 = codeData.indexOf("LAST-MOD:") + 9;
+                calendarIndex2 = codeData.indexOf("\n",calendarIndex1);
+                outputLine("Last Modified: " + codeData.substring(calendarIndex1,calendarIndex2));
+            }
+
+            //Event LOCATION
+            if (codeData.indexOf("LOCATION:") != -1) {
+                calendarIndex1 = codeData.indexOf("LOCATION:") + 9;
+                calendarIndex2 = codeData.indexOf("\n",calendarIndex1);
+                outputLine("Location: " + codeData.substring(calendarIndex1,calendarIndex2));
+            }
+
+            //Event ORGANIZER (US Spelling)
+            if (codeData.indexOf("ORGANIZER:") != -1) {
+                calendarIndex1 = codeData.indexOf("ORGANIZER:") + 10;
+                calendarIndex2 = codeData.indexOf("\n",calendarIndex1);
+                outputLine("Organiser: " + codeData.substring(calendarIndex1,calendarIndex2));
+            }
+
+            //Event PRIORITY
+            if (codeData.indexOf("PRIORITY:") != -1) {
+                calendarIndex1 = codeData.indexOf("PRIORITY:") + 9;
+                calendarIndex2 = codeData.indexOf("\n",calendarIndex1);
+                outputLine("Priority: " + codeData.substring(calendarIndex1,calendarIndex2));
+            }
+
+            //Evemt STATUS
+            if (codeData.indexOf("STATUS:") != -1) {
+                calendarIndex1 = codeData.indexOf("STATUS:") + 7;
+                calendarIndex2 = codeData.indexOf("\n",calendarIndex1);
+                outputLine("Status: " + codeData.substring(calendarIndex1,calendarIndex2));
+            }
+
+            //Event SUMMARY
+            if (codeData.indexOf("SUMMARY:") != -1) {
+                calendarIndex1 = codeData.indexOf("SUMMARY:") + 8;
+                calendarIndex2 = codeData.indexOf("\n",calendarIndex1);
+                outputLine("Summary: " + codeData.substring(calendarIndex1,calendarIndex2));
+            }
+
+            //Event URL
+            if (codeData.indexOf("URL:") != -1) {
+                calendarIndex1 = codeData.indexOf("URL:") + 4;
+                calendarIndex2 = codeData.indexOf("\n",calendarIndex1);
+                outputLine("URL: " + codeData.substring(calendarIndex1,calendarIndex2));
+            }
+
+            //Event RECURID
+            if (codeData.indexOf("RECURID:") != -1) {
+                calendarIndex1 = codeData.indexOf("RECURID:") + 7;
+                calendarIndex2 = codeData.indexOf("\n",calendarIndex1);
+                outputLine("Recurrance iD: " + codeData.substring(calendarIndex1,calendarIndex2));
+            }
+
             break;
+
         case 7: //Wi-Fi
             outputType("Wi-Fi"); //Output the data type
+
+            codeData.toUpperCase();
+            var wifiIndex1;
+            var wifiIndex2;
+
+            //T: Authentication
+            if (codeData.indexOf("T:") != -1) {
+                wifiIndex1 = codeData.indexOf("T:") + 2;
+                wifiIndex2 = codeData.indexOf(";",wifiIndex1);
+                outputLine("Authentication: " + codeData.substring(wifiIndex1,wifiIndex2));
+            } else {
+                outputLine("No Authentication")
+            }
+
+            //S: SSID
+            if (codeData.indexOf("S:") != -1) {
+                wifiIndex1 = codeData.indexOf("S:") + 2;
+                wifiIndex2 = codeData.indexOf(";",wifiIndex1);
+                outputLine("SSID: " + codeData.substring(wifiIndex1,wifiIndex2));
+            }
+
+            //P: SSID
+            if (codeData.indexOf("P:") != -1) {
+                wifiIndex1 = codeData.indexOf("P:") + 2;
+                wifiIndex2 = codeData.indexOf(";",wifiIndex1);
+                if (codeData.substring(wifiIndex1,wifiIndex2) == "NOPASS")
+                {
+                    outputLine("No Password");
+                }
+                else
+                {
+                    outputLine("Password: " + codeData.substring(wifiIndex1,wifiIndex2));
+                }
+            } else {
+                outputLine("No Password");
+            }
+
+            //E: EAP Method
+            if (codeData.indexOf("E:") != -1) {
+                wifiIndex1 = codeData.indexOf("E:") + 2;
+                wifiIndex2 = codeData.indexOf(";",wifiIndex1);
+                outputLine("EAP Method: " + codeData.substring(wifiIndex1,wifiIndex2));
+            }
+
+            //A: Anonymous Identity
+            if (codeData.indexOf("A:") != -1) {
+                wifiIndex1 = codeData.indexOf("A:") + 2;
+                wifiIndex2 = codeData.indexOf(";",wifiIndex1);
+                outputLine("Anonymous Identity: " + codeData.substring(wifiIndex1,wifiIndex2));
+            }
+
+            //I: Identity
+            if (codeData.indexOf("I:",6) != -1) { //Disregards the "I:" part of "WIFI:"
+                wifiIndex1 = codeData.indexOf("I",6) + 2;
+                wifiIndex2 = codeData.indexOf(";",wifiIndex1);
+                outputLine("Identity: " + codeData.substring(wifiIndex1,wifiIndex2));
+            }
+
+            //PH2: Phase 2 (method)
+            if (codeData.indexOf("PH2:") != -1) {
+                wifiIndex1 = codeData.indexOf("PH2:") + 4;
+                wifiIndex2 = codeData.indexOf(";",wifiIndex1);
+                outputLine("Anonymous Identity: " + codeData.substring(wifiIndex1,wifiIndex2));
+            }
+
+            //H: Hidden
+            if (codeData.indexOf("H:") != -1) {
+                wifiIndex1 = codeData.indexOf("H:") + 2;
+                wifiIndex2 = codeData.indexOf(";",wifiIndex1);
+                outputLine("Hidden Network: " + codeData.substring(wifiIndex1,wifiIndex2));
+            }
+            
             break;
+
         case 8: //Bookmark
             outputType("Bookmark"); //Output the data type
             break;
@@ -196,7 +510,7 @@ function findType(codeData) {
     } else {console.log("3. EPC check failed.");}
 
     //4 - SMS (SMS, SMSTO, MMS & MMSTO)
-    if (((codeData.substring(0,6)).toUpperCase() == "SMSTO:") || ((codeData.substring(0,6)).toUpperCase() == "SMSTO:") || ((codeData.substring(0,6)).toUpperCase() == "MMSTO:") || ((codeData.substring(0,4)).toUpperCase() == "MMS:")) {
+    if (((codeData.substring(0,4)).toUpperCase() == "SMS:") || ((codeData.substring(0,6)).toUpperCase() == "SMSTO:") || ((codeData.substring(0,6)).toUpperCase() == "SMSTO:") || ((codeData.substring(0,6)).toUpperCase() == "MMSTO:") || ((codeData.substring(0,4)).toUpperCase() == "MMS:")) {
         return 4;
     } else {console.log("4. SMS check failed.");}
 
@@ -211,7 +525,7 @@ function findType(codeData) {
     } else {console.log("6. Calendar check failed.");}
 
     //7 - Wi-Fi
-    if ((codeData.substring(0,7)).toUpperCase() == "WIFI:T:") {
+    if ((codeData.substring(0,5)).toUpperCase() == "WIFI:") {
         return 7;
     } else {console.log("7. Wi-Fi check failed.");}
 
