@@ -463,7 +463,7 @@ function outputData(codeData) {
             outputType("Text"); //Output the data type
             break;
         default:
-            outputType("Invalid"); //Output the lack of data type
+            outputType("An error occured"); //Output the lack of data type
             break;
     }
 }
@@ -480,7 +480,7 @@ function findType(codeData) {
     //6 = Calendar
     //7 = Wi-Fi
     //8 = Bookmark
-    //9 = Bit Coin
+    //9 = Bitcoin
     //10 = vCard
     //11 = Me Card
     //12 = Text
