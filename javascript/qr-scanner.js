@@ -1,4 +1,4 @@
-import { outputData, findType, outputType } from './qr-output.js';
+import { outputData } from './qr-output.js';
 
 //console.log(jsQR); //jsQR library successfully loaded?
 let stream;

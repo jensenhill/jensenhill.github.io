@@ -441,7 +441,7 @@ function outputData(codeData) {
 
         case 8: //Market (Google Play)
             outputType("Google Play Market"); //Output the data type
-            outputLine(codeData.substr(9)); //Cut out "market://"
+            outputLine(codeData.substr(9)); //Cut out identifier ("market://")
 
             break;
             
@@ -516,7 +516,7 @@ function outputData(codeData) {
         case 10: //vCard
 
         //Map of all vCard properties - used for user-friendly output (https://en.wikipedia.org/wiki/VCard)
-            const propertyList = {
+            var propertyList = {
                 "ADR;": "Address: ",
                 "AGENT:": "Agent: ",
                 "ANNIVERSARY:": "Anniversary: ",
@@ -561,15 +561,15 @@ function outputData(codeData) {
                 "XML:": "XML: ",
             };
             codeData = codeData.replace(/;CHARSET=UTF-8/g, ""); //Remove any possible instance of this, invalidates output
-            console.log(codeData);
 
             outputType("vCard"); //Output the data type
 
-            function outputProperty(property, codeData, propertyList) {
-            
+            //Loop for every property in propertyList
+            for(var[flag,output] of Object.entries(propertyList))
+            {
                 if (codeData.indexOf("\n" + property) != -1) { //Check if property is present
-                    var propertyIndex1 = codeData.indexOf("\n" + property) + (property.length + 1);
-                    var propertyIndex2 = codeData.indexOf("\n",propertyIndex1);
+                    var propertyIndex1 = codeData.indexOf("\n" + property) + (property.length + 1); //Lower boundary
+                    var propertyIndex2 = codeData.indexOf("\n",propertyIndex1); //Upper boundary
 
                     if (propertyIndex2 === -1) { //Must be last line
                         propertyIndex2 = codeData.length;
@@ -579,19 +579,151 @@ function outputData(codeData) {
                 }
             }
 
-            //Loop for every property in propertyList
-            for(var[flag,output] of Object.entries(propertyList))
+            break;
+        
+        case 11: //MeCard
+            outputType("MeCard"); //Output the data type
+            
+            //Map of all MeCard properties - used for user-friendly output (https://en.wikipedia.org/wiki/VCard)
+            var propertyList = {
+                "ADR": "Address: ",
+                "BDAY": "Birthday: ",
+                "EMAIL": "Email: ",
+                "N": "Name: ",
+                "NICKNAME": "Nickname: ",
+                "NOTE": "Note: ",
+                "SOUND": "Sound: ",
+                "TEL": "Telephone Number: ",
+                "URL": "URL: ",
+            };
+
+            codeData = codeData.replace("MECARD:",""); //Remove the identifier
+            codeData = codeData.replace(/;CHARSET=UTF-8/g, ""); //Remove any possible instance of this, invalidates output
+
+            var sections = codeData.split(";"); //Seperate all of the properties from each other
+            
+            //Loop for each property (array of sections)
+            for (let i = 0; i < (sections.length - 1); i++)
             {
-                outputProperty(flag,codeData,propertyList);
+                var parts = sections[i].split(":"); //Seperat the property name/flag from its data
+
+                //URLs contain colons - meaning the length of parts will be > 1
+                if(parts[0] === "URL") {
+                    var tempURL = parts[1];
+                    for (let n = 2; n <= parts.length - 1; n++)
+                    {
+                        tempURL += (":" + parts[n]); //Append all of the items in parts
+                    }
+
+                    outputLine(propertyList[parts[0]] + tempURL);
+
+                } else { //Treat data, that are not URLs, the same
+
+                    outputLine(propertyList[parts[0]] + parts[1]);
+
+                }
             }
 
             break;
-        case 11: //Me Card
-            outputType("MeCard"); //Output the data type
+        
+        case 12: //Bitcoin
+            
+        function outputCrypto(data) {
+
+            var cryptoIndex1; //Store the lower bound
+            var cryptoIndex2; //Store the upper bound
+
+            //Output the address of wallet
+            cryptoIndex2 = data.indexOf("?");
+            outputLine("Address: " + data.substring(0,cryptoIndex2));
+
+            //Output the amount of the currency
+            if(data.indexOf("amount=") != -1) {
+                cryptoIndex1 = data.indexOf("amount=") + 7;
+                cryptoIndex2 = data.indexOf("&");
+
+                //Check this property is the final one
+                if(data.indexOf("&",cryptoIndex1) != -1) {
+                    //Not final property - treat normally
+                    outputLine("Amount: " + data.substring(cryptoIndex1,cryptoIndex2));
+                } else {
+                    //Final property - cryptoIndex2 will be at the end of the string
+                    outputLine("Amount: " + data.substr(cryptoIndex1));
+                }
+
+            }
+
+            //Output the label
+            if (data.indexOf("label=") != -1) {
+                cryptoIndex1 = data.indexOf("label=") + 6;
+                cryptoIndex2 = data.indexOf("&");
+                
+                //Check this property is the final one
+                if(data.indexOf("&",cryptoIndex1) != -1) {
+                    //Not final property - treat normally
+                    outputLine("Label: " + data.substring(cryptoIndex1,cryptoIndex2));
+                } else {
+                    //Final property - cryptoIndex2 will be at the end of the string
+                    outputLine("Label: " + data.substr(cryptoIndex1));
+                }
+            }
+
+            //Output the message
+            if (data.indexOf("message=") != -1) {
+                cryptoIndex1 = data.indexOf("message=") + 8;
+                cryptoIndex2 = data.indexOf("&");
+                
+                //Check this property is the final one
+                if(data.indexOf("&",cryptoIndex1) != -1) {
+                    //Not final property - treat normally
+                    outputLine("Message: " + data.substring(cryptoIndex1,cryptoIndex2));
+                } else {
+                    //Final property - crpytoIndex2 will be at the end of the string
+                    outputLine("Message: " + data.substr(cryptoIndex1));
+                }
+            }
+
+        }
+
+            outputType("Bitcoin");
+            outputCrypto(codeData.substr(8));
+        
             break;
-        case 12: //Text
+        
+        case 13: //Ethereum
+            
+            outputType("Ethereum");
+            outputCrypto(codeData.substr(9));
+
+            break;
+
+        case 14: //Litecoin
+            
+            outputType("Litecoin");
+            outputCrypto(codeData.substr(9));
+
+            break;
+        
+        case 15: //Bitcoin Cash
+            
+            outputType("Bitcoin Cash");
+            outputCrypto(codeData.substr(12));
+        
+            break;
+
+        case 16: //Dash
+            
+            outputType("Dash");
+            outputCrypto(codeData.substr(5));
+
+            break;
+
+        case 17: //Text
             outputType("Text"); //Output the data type
+            outputLine(codeData);
+            
             break;
+        
         default:
             outputType("An error occured"); //Output the lack of data type
             break;
@@ -613,7 +745,12 @@ function findType(codeData) {
     //9 = Swiss Payment QR
     //10 = vCard
     //11 = Me Card
-    //12 = Text
+    //12 = Bitcoin
+    //13 = Ethereum
+    //14 = Litecoin
+    //15 = Bitcoin Cash
+    //16 = Dash
+    //17 = Text
 
     //0 - URL
     if (codeData.substring(0,4).toUpperCase() == "WWW.") {
@@ -665,31 +802,57 @@ function findType(codeData) {
     } else {console.log("8. Market check failed.");}
 
     //9 - Swiss Payment QR
-    if ((codeData.substring(0,3)).toUpperCase() == "SPC") { //"DASH:" / "ETHEREUM:" / "LITECOIN:" / 
+    if ((codeData.substring(0,3)).toUpperCase() == "SPC") {
         return 9;
     } else {console.log("9. Swiss Payment QR check failed.");}
 
     //10 - vCard
-    if (codeData.substring(0,11) == "BEGIN:VCARD") {
+    if (codeData.substring(0,11).toUpperCase() == "BEGIN:VCARD") {
         return 10;
     } else {console.log("10. vCard check failed.");}
 
     //11 - Me Card
-    if (codeData.substring(0,7) == "MECARD:") {
+    if (codeData.substring(0,7).toUpperCase() == "MECARD:") {
         return 11;
     } else {console.log("11. Me Card check failed.");}
 
-    //12 - Text https://barcode.tec-it.com/en/QRCode_Business_meCard
-    return 12;
+    //12 - Bitcoin
+    if (codeData.substring(0,8).toUpperCase() == "BITCOIN:") {
+        return 12;
+    } else {console.log("12. Bitcoin check failed.");}
+
+    //13 - Ethereum
+    if (codeData.substring(0,9).toUpperCase() == "ETHEREUM:") {
+        return 13;
+    } else {console.log("13. Ethereum check failed.");}
+
+    //14 - Litecoin
+    if (codeData.substring(0,9).toUpperCase() == "LITECOIN:") {
+        return 14;
+    } else {console.log("14. Litecoin check failed.");}
+
+    //15 - Bitcoin Cash
+    if (codeData.substring(0,12).toUpperCase() == "BITCOINCASH:") {
+        return 15;
+    } else {console.log("15. Bitcoin Cash check failed.");}
+
+    //16 - Dash
+    if (codeData.substring(0,5).toUpperCase() == "DASH:") {
+        return 16;
+    } else {console.log("16. Dash check failed.");}
+
+    //17 - Text (or other)
+    return 17;
 
 }
 
 //Output the type of data. Called by outputData()
 function outputType(dataTypeText) {
+    var div = document.getElementById("data-container");
     var p = document.createElement("p");
     p.id = "data-type";
     p.textContent = "Data Type: " + dataTypeText;
-    document.body.appendChild(p);
+    div.appendChild(p);
 }
 
 function outputLine(line) {
@@ -701,4 +864,4 @@ function outputLine(line) {
     div.appendChild(tempElement); //Push the new element to the page
 }
 
-export { outputData, findType, outputType };
+export { outputData };
