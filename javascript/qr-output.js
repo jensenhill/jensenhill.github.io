@@ -13,7 +13,7 @@ function outputData(codeData) {
             weburl.textContent = codeData; //Assign text to be same as URL
             weburl.classList.add("data-content"); //Add element to the data-content class
             
-            div.appendChild(weburl);
+            outputLine(weburl);
 
             break;
 
@@ -70,15 +70,8 @@ function outputData(codeData) {
             var sections = codeData.split("\n"); //Split the string at each new line
             
             //Check to see if the line is blank. If so, delete it.
-            for(let i = 0; i <= sections.length; i++)
-            {
-                var currentLine = toString(sections[i]);
-                if ((sections[i] == "") || (currentLine.trim().length === 0))
-                {
-                    console.log("Removed: " + sections[i]);
-                    sections.splice(i,1)
-                }
-            }
+            //If trimmed section is not equal to nothing ("") then filter it out, repeat for each parameter (=>) of section
+            sections = sections.filter(section => section.trim() != ""); //Remove any blank lines
 
             //Create new elements to display each payment detail
             var paymentVersion = "Version: " + sections[0];
@@ -374,7 +367,6 @@ function outputData(codeData) {
         case 7: //Wi-Fi
             outputType("Wi-Fi"); //Output the data type
 
-            codeData.toUpperCase();
             var wifiIndex1;
             var wifiIndex2;
 
@@ -447,14 +439,152 @@ function outputData(codeData) {
             
             break;
 
-        case 8: //Bookmark
-            outputType("Bookmark"); //Output the data type
+        case 8: //Market (Google Play)
+            outputType("Google Play Market"); //Output the data type
+            outputLine(codeData.substr(9)); //Cut out "market://"
+
             break;
-        case 9: //Bitcoin
-            outputType("Bitcoin"); //Output the data type
+            
+        case 9: //Swiss Payment QR
+            outputType("Swiss Payment QR"); //Output the data type
+            codeData = codeData.substr(3); //Cut out the identifier
+            var sections = codeData.split("\n"); //Split the string at each new line
+            var swissIndex = 0; //Track the current index for the sections array
+
+            //If trimmed section is not equal to nothing ("") then filter it out, repeat for each parameter (=>) of section
+            sections = sections.filter(section => section.trim() != ""); //Remove any blank lines
+
+            //Nested function: takes current index and uses it to output an address on the following lines.
+            function swissAddress(tempIndex) { 
+                //Checks if there is an address, and what format it is in.
+                if(sections[tempIndex].toUpperCase() === "K") { //Combined address elements ("K")
+                    outputLine("Address Type: " + sections[tempIndex]); tempIndex++;
+                    outputLine("Name: " + sections[tempIndex]); tempIndex++;
+                    outputLine("Street: " + sections[tempIndex]); tempIndex++;
+                    outputLine("Postcode & City: " + sections[tempIndex]); tempIndex++;
+                    outputLine("Country Code: " + sections[tempIndex]); tempIndex++;
+                } else if (sections[tempIndex].toUpperCase() === "S") { //Structured address ("S")
+                    outputLine("Address Type: " + sections[tempIndex]); tempIndex++;
+                    outputLine("Name: " + sections[tempIndex]); tempIndex++;
+                    outputLine("Street: " + sections[tempIndex]); tempIndex++;
+                    outputLine("Building Number: " + sections[tempIndex]); tempIndex++;
+                    outputLine("Postcode: " + sections[tempIndex]); tempIndex++;
+                    outputLine("Town: " + sections[tempIndex]); tempIndex++;
+                    outputLine("Country Code: " + sections[tempIndex]); tempIndex++;
+                } else {
+                    outputLine("Information not provided."); //If an address is not present, no need to increment index by 1.
+                }
+                return tempIndex;
+            }
+
+            //Standard: https://www.six-group.com/dam/download/banking-services/standardization/qr-bill/ig-qr-bill-v2.2-en.pdf
+
+            //Header Data - Mandatory
+            outputLine("Version: " + sections[swissIndex]); swissIndex++;
+            outputLine("Character Set Code: " + sections[swissIndex]); swissIndex++; //Coding
+            
+            //Creditor Information - Mandatory
+            outputLine("IBAN: " + sections[swissIndex]); swissIndex++;
+
+            //Creditor - Mandatory
+            outputLine("Creditor Information");
+            swissIndex = swissAddress(swissIndex); //Output the creditor address
+            
+            //Ultimate Creditor - Optional
+            outputLine("Ultimate Creditor Information");
+            swissIndex = swissAddress(swissIndex); //Output the ultimate creditor address (if present)
+            
+            //Payment Amount
+            outputLine("Amount: " + sections[swissIndex]); swissIndex++;
+            outputLine("Currency: " + sections[swissIndex]); swissIndex++;
+
+            //Ultimate Debtor - Optional
+            outputLine("Ultimate Debtor Information");
+            swissIndex = swissAddress(swissIndex); //Output the ultimate debtor address (if present)
+
+            //Payment Reference - Mandatory
+            outputLine("Reference Type: " + sections[swissIndex]); swissIndex++;
+            outputLine("Reference: " + sections[swissIndex]); swissIndex++;
+
+            //Additional Information
+            if (sections[swissIndex].toUpperCase() != "EPD") { //If not at end, read additional info
+                outputLine("Additional Information: " + sections[swissIndex]);
+            }
+
             break;
+        
         case 10: //vCard
+
+        //Map of all vCard properties - used for user-friendly output (https://en.wikipedia.org/wiki/VCard)
+            const propertyList = {
+                "ADR;": "Address: ",
+                "AGENT:": "Agent: ",
+                "ANNIVERSARY:": "Anniversary: ",
+                "BDAY:": "Birthday: ",
+                "CALADRURI:": "Scheduling Request Email: ",
+                "CALURI:": "URL to Calendar: ",
+                "CATEGORIES:": "Categories: ",
+                "CLASS:": "Class: ",
+                "CLIENTPIDMAP:": "Client PID Map: ",
+                "EMAIL:": "Email: ",
+                "FBURL:": "Free or Busy URL: ",
+                "FN:": "Full Name: ",
+                "GENDER:": "Gender: ",
+                "GEO:": "Position: ",
+                "IMPP:": "Instant Messenger Handle: ",
+                "KEY;": "Key: ",
+                "KIND:": "Kind: ",
+                "LABEL;": "Label: ",
+                "LANG:": "Language: ",
+                "LOGO;": "Logo: ",
+                "MAILER:": "Mailer: ",
+                "MEMBER:": "Member: ",
+                "N:": "Name: ",
+                "NAME:": "Name: ",
+                "NICKNAME:": "Nickname: ",
+                "NOTE:": "Note: ",
+                "ORG;": "Organisation: ",
+                "PHOTO;": "Photo: ",
+                "PRODID:": "Product ID: ",
+                "PROFILE:": "Profile: ",
+                "RELATED;": "Related: ",
+                "REV:": "Revision: ",
+                "ROLE:": "Role: ",
+                "SOUND;": "Sound: ",
+                "SOURCE:": "Source: ",
+                "TEL;": "Telephone: ",
+                "TITLE;": "Title: ",
+                "TZ:": "Time Zone: ",
+                "UID:": "Unique Identifier: ",
+                "URL:": "URL: ",
+                "VERSION:": "Version: ",
+                "XML:": "XML: ",
+            };
+            codeData = codeData.replace(/;CHARSET=UTF-8/g, ""); //Remove any possible instance of this, invalidates output
+            console.log(codeData);
+
             outputType("vCard"); //Output the data type
+
+            function outputProperty(property, codeData, propertyList) {
+            
+                if (codeData.indexOf("\n" + property) != -1) { //Check if property is present
+                    var propertyIndex1 = codeData.indexOf("\n" + property) + (property.length + 1);
+                    var propertyIndex2 = codeData.indexOf("\n",propertyIndex1);
+
+                    if (propertyIndex2 === -1) { //Must be last line
+                        propertyIndex2 = codeData.length;
+                    }
+
+                    outputLine(propertyList[property] + codeData.substring(propertyIndex1,propertyIndex2))
+                }
+            }
+
+            //Loop for every property in propertyList
+            for(var[flag,output] of Object.entries(propertyList))
+            {
+                outputProperty(flag,codeData,propertyList);
+            }
+
             break;
         case 11: //Me Card
             outputType("MeCard"); //Output the data type
@@ -479,8 +609,8 @@ function findType(codeData) {
     //5 = Maps
     //6 = Calendar
     //7 = Wi-Fi
-    //8 = Bookmark
-    //9 = Bitcoin
+    //8 = Market
+    //9 = Swiss Payment QR
     //10 = vCard
     //11 = Me Card
     //12 = Text
@@ -529,15 +659,15 @@ function findType(codeData) {
         return 7;
     } else {console.log("7. Wi-Fi check failed.");}
 
-    //8 - Bookmark
-    if ((codeData.substring(0,6)).toUpperCase() == "MEBKM:") {
+    //8 - Market
+    if ((codeData.substring(0,7)).toUpperCase() == "MARKET:") {
         return 8;
-    } else {console.log("8. Bookmark check failed.");}
+    } else {console.log("8. Market check failed.");}
 
-    //9 - Bitcoin
-    if ((codeData.substring(0,8)).toUpperCase() == "BITCOIN:") {
+    //9 - Swiss Payment QR
+    if ((codeData.substring(0,3)).toUpperCase() == "SPC") { //"DASH:" / "ETHEREUM:" / "LITECOIN:" / 
         return 9;
-    } else {console.log("9. Bitcoin check failed.");}
+    } else {console.log("9. Swiss Payment QR check failed.");}
 
     //10 - vCard
     if (codeData.substring(0,11) == "BEGIN:VCARD") {
@@ -549,7 +679,7 @@ function findType(codeData) {
         return 11;
     } else {console.log("11. Me Card check failed.");}
 
-    //12 - Text
+    //12 - Text https://barcode.tec-it.com/en/QRCode_Business_meCard
     return 12;
 
 }
