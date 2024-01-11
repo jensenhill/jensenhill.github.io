@@ -29,7 +29,7 @@
     margin:10px;
 }
 
-.data-content {
+.data-container {
     text-align: center;
     display:block;
     font-size:30px;
@@ -39,7 +39,7 @@
     margin:3px;
 }
 
-a.data-content {
+a.data-container {
     color:rgb(0, 110, 255);
 }
 

@@ -11,7 +11,7 @@ function outputData(codeData) {
             var weburl = document.createElement("a"); //Create clickable URL element
             weburl.href = codeData; //Assign URL to element
             weburl.textContent = codeData; //Assign text to be same as URL
-            weburl.classList.add("data-content"); //Add element to the data-content class
+            weburl.classList.add("data-container"); //Add element to the data-container class
             
             outputLine(weburl);
 
@@ -116,8 +116,10 @@ function outputData(codeData) {
             outputLine(geoLat);
             var geoLong = "Longitude: " + sections[1] + " deg W";
             outputLine(geoLong);
-            var geoHeight = "Height: " + sections[2] + "m";
-            outputLine(geoHeight);
+            if (sections.length > 2) {
+                var geoHeight = "Height: " + sections[2] + "m";
+                outputLine(geoHeight);
+            }
 
             break;
 
@@ -518,6 +520,7 @@ function outputData(codeData) {
         //Map of all vCard properties - used for user-friendly output (https://en.wikipedia.org/wiki/VCard)
             var propertyList = {
                 "ADR;": "Address: ",
+                "ADR:": "Address: ",
                 "AGENT:": "Agent: ",
                 "ANNIVERSARY:": "Anniversary: ",
                 "BDAY:": "Birthday: ",
@@ -567,15 +570,15 @@ function outputData(codeData) {
             //Loop for every property in propertyList
             for(var[flag,output] of Object.entries(propertyList))
             {
-                if (codeData.indexOf("\n" + property) != -1) { //Check if property is present
-                    var propertyIndex1 = codeData.indexOf("\n" + property) + (property.length + 1); //Lower boundary
+                if (codeData.indexOf("\n" + flag) != -1) { //Check if property is present
+                    var propertyIndex1 = codeData.indexOf("\n" + flag) + (flag.length + 1); //Lower boundary
                     var propertyIndex2 = codeData.indexOf("\n",propertyIndex1); //Upper boundary
 
                     if (propertyIndex2 === -1) { //Must be last line
                         propertyIndex2 = codeData.length;
                     }
 
-                    outputLine(propertyList[property] + codeData.substring(propertyIndex1,propertyIndex2))
+                    outputLine(propertyList[flag] + codeData.substring(propertyIndex1,propertyIndex2))
                 }
             }
 
@@ -860,7 +863,7 @@ function outputLine(line) {
     var tempElement = document.createElement("p"); //Create temporary <p> element
     var tempText = document.createTextNode(line); //Create temporary text node
     tempElement.appendChild(tempText); //Merge text node with <p> element
-    tempElement.classList.add("data-content"); //Add the element to "data-content" class (used for decoration)
+    tempElement.classList.add("data-container"); //Add the element to "data-container" class (used for decoration)
     div.appendChild(tempElement); //Push the new element to the page
 }
 

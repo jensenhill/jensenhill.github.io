@@ -78,5 +78,3 @@ function startCamera(facingMode) {
             }
         })
     }
-
-    //WHERE outputData used to be
