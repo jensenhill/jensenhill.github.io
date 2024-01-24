@@ -39,8 +39,12 @@ function startCamera(facingMode) {
                     
                     var removeStatus = document.getElementById("status");
                     removeStatus.remove(); //Remove the error status as QR successfully scanned.
+                    document.getElementById("camera-container").style.backgroundColor = "green";
                     
                     outputData(code.data); //Output the QR code's data to the user
+                    
+                    document.getElementById("export-button").style.visibility = "visible"; //Let the user export the code's data
+
                     return;
                 }
                 //QR Code NOT Found (null object)

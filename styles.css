@@ -8,6 +8,19 @@
     font-family: 'Roboto', sans-serif;
 }
 
+.flex-box {
+    display:flex;
+    flex-direction: row;
+}
+
+.flex-box-central {
+    flex:40%;
+}
+
+.flex-box-side {
+    flex:30%;
+}
+
 /* =============================================*/
 /* QR Data Container */
 /* =============================================*/
@@ -52,30 +65,25 @@ a.data-container {
     overflow:hidden;
 
     /*Center content*/
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
     
     border-radius:30px;
-    width: 100%;
-}
+    width:500px;
 
-.camera-container-background {
-    background: rgb(47,205,33);
-    background: radial-gradient(circle, rgba(47,205,33,1) 0%, rgba(43,120,32,1) 100%); 
+    background: rgb(33,139,205);
+    background: radial-gradient(circle, rgba(33,139,205,1) 0%, rgba(32,39,120,1) 100%); 
     border-radius:30px;
 }
 
 #camera {
     width:500px;
     height:500px;
+    border-radius:30px;
+    
     /*Video completely covers .camera-container's element*/
     object-fit:cover;
-
-    background: rgb(33,139,205);
-    background: radial-gradient(circle, rgba(33,139,205,1) 0%, rgba(32,39,120,1) 100%); 
-    border-radius:30px;
-
     position:relative;
     z-index:99;
 }
@@ -84,6 +92,30 @@ a.data-container {
 /* QR History Container */
 /* =============================================*/
 
+.history-container {
+
+}
+
+/* =============================================*/
+/* Export Data Button */
+/* =============================================*/
+
+#export-button {
+    cursor: pointer;
+    padding:10px;
+    background-color:rgb(255, 238, 0);
+    color:rgb(0, 0, 0);
+    visibility: hidden;
+
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+
+#export-button:hover {
+    background-color:rgb(255, 196, 0);
+}
 
 /* =============================================*/
 /* Footer
