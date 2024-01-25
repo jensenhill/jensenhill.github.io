@@ -8,6 +8,16 @@
     font-family: 'Roboto', sans-serif;
 }
 
+.title {
+    text-align: center;
+    font-size:30px;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* =============================================*/
+/* Flex box (responsive)
+/* =============================================*/
+
 .flex-box {
     display:flex;
     flex-direction: row;
@@ -19,7 +29,21 @@
 
 .flex-box-side {
     flex:30%;
+    background-color:rgb(178, 202, 235);
+    border-radius:30px;
+    padding:20px;
 }
+
+@media (max-width:800px) {
+    .flex-box {
+        flex-direction:column;
+    }
+
+    .flex-box-centeral, .flex-box-side {
+        flex:100%;
+    }
+}
+
 
 /* =============================================*/
 /* QR Data Container */
@@ -70,7 +94,9 @@ a.data-container {
     margin-right:auto;
     
     border-radius:30px;
-    width:500px;
+    width:90%;
+    aspect-ratio:1/1;
+    max-width: 500px;
 
     background: rgb(33,139,205);
     background: radial-gradient(circle, rgba(33,139,205,1) 0%, rgba(32,39,120,1) 100%); 
@@ -78,9 +104,10 @@ a.data-container {
 }
 
 #camera {
-    width:500px;
-    height:500px;
     border-radius:30px;
+    width:100%;
+    aspect-ratio:1/1;
+    max-width: 500px;
     
     /*Video completely covers .camera-container's element*/
     object-fit:cover;
@@ -93,7 +120,7 @@ a.data-container {
 /* =============================================*/
 
 .history-container {
-
+    
 }
 
 /* =============================================*/
