@@ -1,4 +1,5 @@
 import { outputData } from './qr-output.js';
+import { storeCode,displayCodes,formatDate } from './qr-history.js';
 
 //console.log(jsQR); //jsQR library successfully loaded?
 let stream;
@@ -42,7 +43,9 @@ function startCamera(facingMode) {
                     document.getElementById("camera-container").style.backgroundColor = "green";
                     
                     outputData(code.data); //Output the QR code's data to the user
-                    
+                    storeCode(code.data); //Store the QR code in history
+                    displayCodes(); //Refresh the QR code history
+
                     document.getElementById("export-button").style.visibility = "visible"; //Let the user export the code's data
 
                     return;
@@ -57,7 +60,8 @@ function startCamera(facingMode) {
 
             frameAnalysis(); //Loop
 
-        })}).catch((error) => { //Catch error if rear 'environment' camera not available.
+        })
+    }).catch((error) => { //Catch error if rear 'environment' camera not available.
             //Check if this error is because user denied permission 
             if (error.name === 'NotAllowedError') {
                 console.log("User has denied access to the camera.");
@@ -80,5 +84,5 @@ function startCamera(facingMode) {
                     document.getElementById("status").innerText = "No camera was detected on this device."; //Inform user that we cannot access camera
                 }
             }
-        })
-    }
+    })
+}
