@@ -2,6 +2,8 @@
 <html>
 
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <title>QR Inspector</title>
         <link rel="icon" type="image/png" href="assets/favicon.png">
         <link rel="stylesheet" href="styles.css">
@@ -9,7 +11,30 @@
         <script type="module" src="javascript/qr-scanner.js"></script>
         <script src="javascript/qr-export.js"></script>
 
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.13.1/cdn/themes/light.css" />
+        <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.13.1/cdn/shoelace-autoloader.js"></script>
+        <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.13.1/cdn/components/copy-button/copy-button.js"></script>
+
     </head>
+
+    <header>
+        <div class="header">
+            <div class="flex-left">
+                <div class="empty-button"></div>
+            </div>
+            <div class="flex-center">
+                <img src="assets/Banner White.png" alt="QR Inspector Logo" class="header">
+            </div>
+            <div class="flex-right">
+                <div class="wiki-button">
+                    <sl-button variant="default" href="https://github.com/jensenhill/jensenhill.github.io/wiki" target="_blank">
+                        <sl-icon slot="prefix" name="gear"></sl-icon>
+                        Wiki - Help
+                    </sl-button>
+                </div>
+            </div>
+        </div>
+    </header>
 
     <body>
         
@@ -32,9 +57,9 @@
             <!-- QR Code History -->
             <div class="flex-box-left">
                 <h1 class="title">QR History</h1>
-                <div id="history-container">
-                
-                </div>
+                <sl-divider style="--color: black; --width: 3px"></sl-divider>
+                <div id="history-container"></div>
+                <sl-divider style="--color: black; --width: 3px"></sl-divider>
             </div>
 
             <!-- Camera Stream -->
@@ -48,6 +73,7 @@
                     </button>
                 </div>
                 <h1 class="text" id="status">Awaiting camera permission</h1>
+                <sl-progress-bar indeterminate class="loading-bar" id="loading-bar"></sl-progress-bar>
             </div>
 
             <!--Container for the QR code's data -->
@@ -59,10 +85,18 @@
 
         </div>
 
-
+        <div style="padding-bottom: 2.5rem;"></div>
         
 
     </body>
+
+    <footer>
+        <div class="footer">
+            Copryright &copy 2024 QR Inspector
+        </div>
+    </footer>
+
+
     <script src="javascript/qr-history.js"></script>
 
 </html>

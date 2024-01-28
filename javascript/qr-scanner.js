@@ -20,6 +20,9 @@ function startCamera(facingMode) {
         videoStream.play(); //Video starts playing
 
         videoStream.addEventListener("playing", () => { //Video play event... once video starts playing execute:
+            
+            document.getElementById("loading-bar").remove(); //Remove loading bar
+
             document.getElementById("status").innerText = "QR Code not detected"; //Update #output from 'awaiting camera' to 'no QR code found'
             const canvas = document.createElement("canvas"); //Display video stream onto canvas
             const renderingContext = canvas.getContext("2d"); //Rendering context as "2D"

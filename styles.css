@@ -1,11 +1,74 @@
-/* =============================================*/
-/* Header
-/* =============================================*/
+* {
+    box-sizing: border-box;
+}
 
 *::selection {
     color:rgb(255, 255, 255);
     background-color: rgb(137, 14, 14);
 }
+
+body {
+    position: relative;
+    min-height: 98.25vh;
+}
+
+/* =============================================*/
+/* Header
+/* =============================================*/
+
+.header {
+    background-color:rgb(137, 14, 14);
+    margin:-10px;
+    padding-top:10px;
+    padding-bottom:10px;
+    display:flex;
+    flex-direction: row;
+}
+
+.flex-center {
+    flex:50%;
+}
+
+.flex-left {
+    flex:25%;
+}
+
+.flex-right {
+    flex:25%;
+    display: flex;
+    align-items: center;
+}
+
+img.header {
+    margin-left:auto;
+    margin-right:auto;
+    display: block;
+    height:10vh;
+    min-height:75px;
+    
+}
+
+.wiki-button, .empty-button {
+    margin-right:20px;
+    right:0;
+    position:absolute;
+}
+
+@media (max-width:800px) {
+
+    .flex-center, .flex-right {
+        flex: 100%;
+    }
+
+    .flex-left {
+        flex:0%;
+    }
+
+}
+
+/* =============================================*/
+/* Misc
+/* =============================================*/
 
 .text {
     text-align: center;
@@ -44,10 +107,13 @@
     overflow-y: scroll;
     margin-left:20px;
     margin-right:20px;
+    box-shadow: var(--sl-shadow-x-large);
 }
 
 .flex-box-left {
     margin-left:20px;
+    background-color: #8BC6EC;
+    background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
 }
 
 .flex-box-right {
@@ -77,8 +143,8 @@
         order:3;
     }
 
-    .history-entry * {
-        font-size:15px;
+    .history-entry *, time.history-entry-date {
+        font-size:13px !important;
     }
 }
 
@@ -153,13 +219,17 @@ a.data-container {
     z-index:99;
 }
 
+.loading-bar {
+    --indicator-color: red;
+    --height: 6px;
+    margin-left:auto;
+    margin-right:auto;
+    width:80%;
+}
+
 /* =============================================*/
 /* QR History Container */
 /* =============================================*/
-
-.history-container {
-    background-color: rgb(184, 210, 232);
-}
 
 .history-error {
     color:rgb(53, 53, 53);
@@ -171,24 +241,38 @@ a.data-container {
 }
 
 .history-entry {
-    background: rgb(2,0,36);
-    background: linear-gradient(135deg, rgba(2,0,36,1) 0%, rgba(193,193,240,1) 0%, rgba(73,181,203,1) 100%); 
+    background: rgb(159,215,239);
+    background: linear-gradient(135deg, rgba(159,215,239,1) 0%, rgba(184,211,248,1) 100%);   
     border-radius: 10px;
     border: 1px solid slategrey;
     font-size:0.5vw;
     padding:5px;
     display:flex;
     font-family:'Roboto', sans-serif;
-    margin-bottom:5px;   
+    margin-bottom:5px;
+    text-decoration:none;
 }
+
+.history-entry:hover {
+    background: rgb(15,18,134);
+    background: linear-gradient(135deg, rgba(15,18,134,1) 0%, rgba(75,0,163,1) 100%); 
+}
+
+.history-entry:hover .history-entry-code,
+.history-entry:hover .history-entry-date,
+.history-entry:hover .history-button {
+    color:white;
+}
+
 
 .history-entry-code {
     text-align:left;
+    color:black;
 
     /*Fade out if too many characters*/
-    flex: 70%;
-    max-width:70%;
-    min-width:70%;
+    flex: 65%;
+    max-width:60%;
+    min-width:60%;
 
     overflow:hidden;
     white-space:nowrap;
@@ -199,13 +283,20 @@ a.data-container {
 .history-entry-date {
     font-style: italic;
     text-align:right;
-    flex: 30%;
+    flex:30%;
     color:rgb(48, 48, 48);
+    
+    /*Adjust for library*/
+    font-size:0.8vw;
+    margin-top:auto;
+    margin-bottom:auto;
 }
 
-.history-copy {
-    width:10%;
-    height:10%;
+.history-button {
+    flex:5%;
+    font-size:1vw;
+    margin-top:auto;
+    margin-bottom:auto;
 }
 
 /* =============================================*/
@@ -233,3 +324,20 @@ a.data-container {
 /* Footer
 /* =============================================*/
 
+.footer {
+    background-color:rgb(137, 14, 14);
+    padding-top:10px;
+    padding-bottom:10px;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    color:white;
+    height: 2.5rem;
+    
+    width:100%;
+    margin:-10px;
+
+    position: absolute;
+    bottom:0;
+    right:0;
+    left:0;
+}

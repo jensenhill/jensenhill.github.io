@@ -43,14 +43,24 @@ function displayCodes() {
             element.classList.add("history-entry-code");
             
             //QR code scan date
-            var spanDate = document.createElement("h1");
-            spanDate.textContent = formatDate(previousCodes[i].time)
-            spanDate.classList.add("history-entry-date");
+            //var spanDate = document.createElement("h1");
+            //spanDate.textContent = formatDate(previousCodes[i].time)
+            //spanDate.classList.add("history-entry-date");
+
+            var relativeTime = document.createElement("sl-relative-time");
+            relativeTime.setAttribute("date",previousCodes[i].time);
+            relativeTime.classList.add("history-entry-date");
     
             var entry = document.createElement("div");
             entry.classList.add("history-entry");
             entry.appendChild(element);
-            entry.appendChild(spanDate);
+            //entry.appendChild(spanDate);
+            entry.appendChild(relativeTime);
+
+            var butn = document.createElement("sl-copy-button");
+            butn.classList.add("history-button");
+            butn.setAttribute("value",previousCodes[i].code);
+            entry.appendChild(butn);
     
             div.appendChild(entry);
         }
