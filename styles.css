@@ -12,6 +12,13 @@ body {
     min-height: 98.25vh;
 }
 
+.alert {
+    opacity:0;
+    margin-top: var(--sl-spacing-medium);
+    font-size:30px;
+    --sl-font-size-small:1.3rem;
+}
+
 /* =============================================*/
 /* Header
 /* =============================================*/
@@ -23,6 +30,7 @@ body {
     padding-bottom:10px;
     display:flex;
     flex-direction: row;
+    border-bottom: 3px solid rgb(54, 0, 0);
 }
 
 .flex-center {
@@ -45,7 +53,7 @@ img.header {
     display: block;
     height:10vh;
     min-height:75px;
-    
+    border-bottom:none;
 }
 
 .wiki-button, .empty-button {
@@ -88,6 +96,7 @@ img.header {
 /* =============================================*/
 
 .flex-box {
+    margin-top:40px;
     display:flex;
     flex-direction: row;
 }
@@ -107,7 +116,7 @@ img.header {
     overflow-y: scroll;
     margin-left:20px;
     margin-right:20px;
-    box-shadow: var(--sl-shadow-x-large);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.388);
 }
 
 .flex-box-left {
@@ -207,6 +216,21 @@ a.data-container {
     border-radius:30px;
 }
 
+.camera-waiting {
+    background-color:rgba(0, 0, 0, 0.8);
+    z-index:2;
+    color:white;
+    font-family:'Roboto', sans-serif;
+    font-size:3vw;
+
+    height:100%;
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
 #camera {
     border-radius:30px;
     width:100%;
@@ -216,7 +240,7 @@ a.data-container {
     /*Video completely covers .camera-container's element*/
     object-fit:cover;
     position:relative;
-    z-index:99;
+    z-index:1;
 }
 
 .loading-bar {

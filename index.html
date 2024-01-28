@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,9 +37,7 @@
     </header>
 
     <body>
-        
-        <h1 class="text">QR Inspector Prototype</h1>
-        
+
         <script src="https://unpkg.com/jsqr"></script> <!-- Import jsQR library -->
         
         <!--Font Library -->
@@ -48,6 +46,14 @@
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap" rel="stylesheet">
         <script src="https://kit.fontawesome.com/1aedc2e9fe.js" crossorigin="anonymous"></script>
         <!----------------->
+
+        <!-- Error Alerts -->
+        <sl-alert variant="danger" id="camera-denied" style="font-size:30px;" class="alert" closable>
+            <sl-icon slot="icon" name="exclamation-triangle"></sl-icon>
+            The application requires camera access to function. 
+            Please enable camera access or see the <a href = "https://github.com/jensenhill/jensenhill.github.io/wiki" target="_blank">Wiki</a> 
+            for troubleshooting information.
+        </sl-alert>
 
 
         <!-- Begin Elements -->
@@ -64,14 +70,18 @@
 
             <!-- Camera Stream -->
             <div class="flex-box-central">
-                <div class="camera-container" id="camera-container">
-                    <video id="camera"></video> <!-- Display camera stream to user -->
 
-                    <!-- Export data button -->
-                    <button id="export-button" title="Export via Email" onclick="exportCode()">
-                        <i class="fa-solid fa-share-from-square"></i>
-                    </button>
+                <div class="camera-container" id="camera-container">
+                    <div class="camera-waiting"> Waiting for Camera
+                        <video id="camera"></video> <!-- Display camera stream to user -->
+
+                        <!-- Export data button -->
+                        <button id="export-button" title="Export via Email" onclick="exportCode()">
+                            <i class="fa-solid fa-share-from-square"></i>
+                        </button>
+                    </div>
                 </div>
+
                 <h1 class="text" id="status">Awaiting camera permission</h1>
                 <sl-progress-bar indeterminate class="loading-bar" id="loading-bar"></sl-progress-bar>
             </div>

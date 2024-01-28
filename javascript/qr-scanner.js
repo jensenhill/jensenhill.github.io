@@ -1,6 +1,7 @@
 import { outputData } from './qr-output.js';
 import { storeCode,displayCodes,formatDate } from './qr-history.js';
 
+
 //console.log(jsQR); //jsQR library successfully loaded?
 let stream;
 let terminate = false;
@@ -69,6 +70,13 @@ function startCamera(facingMode) {
             if (error.name === 'NotAllowedError') {
                 console.log("User has denied access to the camera.");
                 document.getElementById("status").innerText = "Access to the camera has been denied."; //Inform user that we cannot access camera
+
+                document.getElementById("loading-bar").remove(); //Remove loading bar
+                
+                //Create an alert
+                const alert = document.getElementById("camera-denied");
+                alert.style.opacity = 1;
+                alert.show();
             } 
             //User granted permission, but...
             else {
