@@ -35,7 +35,7 @@ function displayCodes() {
         var copyIcon = document.createElement("i");
         copyIcon.classList.add("fas", "fa-copy");
 
-        for (var i = previousCodes.length-1; i >= 0; i--) {
+        for (var i = previousCodes.length-1; i >= 0; i--) {       
 
             //QR code data
             var element = document.createElement("h1");
@@ -43,20 +43,17 @@ function displayCodes() {
             element.classList.add("history-entry-code");
             
             //QR code scan date
-            //var spanDate = document.createElement("h1");
-            //spanDate.textContent = formatDate(previousCodes[i].time)
-            //spanDate.classList.add("history-entry-date");
-
             var relativeTime = document.createElement("sl-relative-time");
             relativeTime.setAttribute("date",previousCodes[i].time);
             relativeTime.classList.add("history-entry-date");
-    
+            
+            //Package up the elements and push to HTML
             var entry = document.createElement("div");
             entry.classList.add("history-entry");
             entry.appendChild(element);
-            //entry.appendChild(spanDate);
             entry.appendChild(relativeTime);
 
+            //Copy Button
             var butn = document.createElement("sl-copy-button");
             butn.classList.add("history-button");
             butn.setAttribute("value",previousCodes[i].code);

@@ -216,21 +216,6 @@ a.data-container {
     border-radius:30px;
 }
 
-.camera-waiting {
-    background-color:rgba(0, 0, 0, 0.8);
-    z-index:2;
-    color:white;
-    font-family:'Roboto', sans-serif;
-    font-size:3vw;
-
-    height:100%;
-    width:100%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-}
-
 #camera {
     border-radius:30px;
     width:100%;
@@ -244,12 +229,29 @@ a.data-container {
 }
 
 .loading-bar {
+    margin-top: var(--sl-spacing-medium);
     --indicator-color: red;
     --height: 6px;
     margin-left:auto;
     margin-right:auto;
     width:80%;
 }
+
+.notification {
+    font-family:'Roboto', sans-serif;
+    opacity:0;
+    width:100%;
+    justify-content:center;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top: var(--sl-spacing-medium);
+}
+
+/* This needs to be visible at start-up */
+#waiting {
+    opacity:1;
+}
+  
 
 /* =============================================*/
 /* QR History Container */

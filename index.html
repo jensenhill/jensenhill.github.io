@@ -28,7 +28,7 @@
             <div class="flex-right">
                 <div class="wiki-button">
                     <sl-button variant="default" href="https://github.com/jensenhill/jensenhill.github.io/wiki" target="_blank">
-                        <sl-icon slot="prefix" name="gear"></sl-icon>
+                        <sl-icon slot="prefix" name="book"></sl-icon>
                         Wiki - Help
                     </sl-button>
                 </div>
@@ -46,6 +46,13 @@
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap" rel="stylesheet">
         <script src="https://kit.fontawesome.com/1aedc2e9fe.js" crossorigin="anonymous"></script>
         <!----------------->
+
+        <!-- Screen Reader -->
+        <sl-visually-hidden>
+            Message to those using a screen reader.
+            The webpage will request access to your rear camera, or if not possible, your front camera.
+            This will allow the device to read a QR code automatically.
+        </sl-visually-hidden>
 
         <!-- Error Alerts -->
         <sl-alert variant="danger" id="camera-denied" style="font-size:30px;" class="alert" closable>
@@ -72,18 +79,34 @@
             <div class="flex-box-central">
 
                 <div class="camera-container" id="camera-container">
-                    <div class="camera-waiting"> Waiting for Camera
-                        <video id="camera"></video> <!-- Display camera stream to user -->
+                    <video id="camera"></video> <!-- Display camera stream to user -->
 
-                        <!-- Export data button -->
-                        <button id="export-button" title="Export via Email" onclick="exportCode()">
-                            <i class="fa-solid fa-share-from-square"></i>
-                        </button>
-                    </div>
+                    <!-- Export data button -->
+                    <button id="export-button" title="Export via Email" onclick="exportCode()">
+                        <i class="fa-solid fa-share-from-square"></i>
+                    </button>
                 </div>
 
-                <h1 class="text" id="status">Awaiting camera permission</h1>
+                <!-- <h1 class="text" id="status">Awaiting camera permission</h1> -->
+                
+                <!-- Notify user that the application is awaiting camera access -->
+                <sl-badge variant="danger" class="notification" id="waiting" style="font-size:max(30px, 1em);" pill pulse>
+                    Waiting for Camera Access...
+                </sl-badge>
+
+                <!-- Demonstrate application is waiting for user to enable camera -->
                 <sl-progress-bar indeterminate class="loading-bar" id="loading-bar"></sl-progress-bar>
+
+                <!-- Notify user that the application is looking for a code -->
+                <sl-badge variant="warning" class="notification" id="searching" style="font-size:max(30px, 1em);" pill pulse>
+                    Searching for a QR Code...
+                </sl-badge>
+
+                <!-- Notify the user that the code was successfully scanned -->
+                <sl-badge variant="success" class="notification" id="success" style="font-size:max(30px, 1em);" pill>
+                    QR Code Successfully Scanned
+                </sl-badge>
+
             </div>
 
             <!--Container for the QR code's data -->
@@ -102,7 +125,7 @@
 
     <footer>
         <div class="footer">
-            Copryright &copy 2024 QR Inspector
+            Copyright &copy 2024 QR Inspector
         </div>
     </footer>
 

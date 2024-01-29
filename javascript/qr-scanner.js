@@ -23,8 +23,9 @@ function startCamera(facingMode) {
         videoStream.addEventListener("playing", () => { //Video play event... once video starts playing execute:
             
             document.getElementById("loading-bar").remove(); //Remove loading bar
-
-            document.getElementById("status").innerText = "QR Code not detected"; //Update #output from 'awaiting camera' to 'no QR code found'
+            document.getElementById("searching").style.opacity = 1; //Reveal the "Searching for code" message
+            document.getElementById("waiting").remove(); //Remove the "Waiting for camera access" message
+            
             const canvas = document.createElement("canvas"); //Display video stream onto canvas
             const renderingContext = canvas.getContext("2d"); //Rendering context as "2D"
 
@@ -41,11 +42,12 @@ function startCamera(facingMode) {
                     
                     stream.getTracks().forEach(track => track.stop()) //Terminate camera stream.
                     videoStream.style.visibility = 'hidden'; //Once terminated, hide the container (otherwise the screen will be black).
-                    
-                    var removeStatus = document.getElementById("status");
-                    removeStatus.remove(); //Remove the error status as QR successfully scanned.
+
+                    document.getElementById("searching").remove(); //Remove the "Searching for QR code" message
+                    document.getElementById("success").style.opacity = 1; //Reveal the "QR Code Successfully Scanned" message
+
                     document.getElementById("camera-container").style.backgroundColor = "green";
-                    
+
                     outputData(code.data); //Output the QR code's data to the user
                     storeCode(code.data); //Store the QR code in history
                     displayCodes(); //Refresh the QR code history
@@ -69,10 +71,10 @@ function startCamera(facingMode) {
             //Check if this error is because user denied permission 
             if (error.name === 'NotAllowedError') {
                 console.log("User has denied access to the camera.");
-                document.getElementById("status").innerText = "Access to the camera has been denied."; //Inform user that we cannot access camera
+                document.getElementById("waiting").remove();
 
                 document.getElementById("loading-bar").remove(); //Remove loading bar
-                
+
                 //Create an alert
                 const alert = document.getElementById("camera-denied");
                 alert.style.opacity = 1;
@@ -91,8 +93,11 @@ function startCamera(facingMode) {
                     terminate = true;
                 }
                 else if (terminate === true) 
-                {
-                    document.getElementById("status").innerText = "No camera was detected on this device."; //Inform user that we cannot access camera
+                {   
+                    //Device does not have a camera
+                    const alert = document.getElementById("camera-denied");
+                    alert.style.opacity = 1;
+                    alert.show();
                 }
             }
     })
