@@ -852,6 +852,9 @@ function findType(codeData) {
 //Output the type of data. Called by outputData()
 function outputType(dataTypeText) {
     var div = document.getElementById("data-container");
+
+    div.innerHTML = ""; //Clear the div before we output data.
+
     var p = document.createElement("p");
     p.id = "data-type";
     p.textContent = "Data Type: " + dataTypeText;
@@ -867,4 +870,12 @@ function outputLine(line) {
     div.appendChild(tempElement); //Push the new element to the page
 }
 
-export { outputData };
+function noData() {
+    var div = document.getElementById("data-container");
+    var error = document.createElement("h1");
+    error.textContent = "No data to display...";
+    error.classList.add("no-data");
+    div.appendChild(error);
+}
+
+export { outputData, noData }; //=> qr-scanner.js

@@ -1,37 +1,25 @@
 //localStorage.clear(); //Testing
 
-//Check if the user has previously enabled history tracking
-if (localStorage.getItem("saveDataEnabled") == "true") {
-    console.log("Successfully accessed previous scanned codes.");
-    //storeCode("VCARD:John;Name:Doe;Age:53;Location:London;");
-}
-
 displayCodes(); //On start up, attempt to display the user's QR code history
-
-//If a code was just scanned, store it using this function.
-function storeCode(currentCode) {
-    var previousCodes = JSON.parse(localStorage.getItem("previous-codes")) || [];
-    previousCodes.push({code : currentCode, time : new Date().toISOString()});
-    localStorage.setItem("previous-codes",JSON.stringify(previousCodes));
-}
 
 //On start, and after a scan, display an (updated) list of codes.
 function displayCodes() {
     
+    //Fetch the previously scanned codes from local flat file
     var previousCodes = JSON.parse(localStorage.getItem("previous-codes")) || [];
     var div = document.getElementById("history-container");
 
     //Check if there are any codes in the log
     if (previousCodes.length == 0) {
-        
+        //Inform user there is no history
         var error = document.createElement("h1");
         error.textContent = "No history to display...";
-        error.classList.add("history-error");
+        error.classList.add("no-data");
         div.appendChild(error);
     }
     //Otherwise, display each history record
     else {
-        div.innerHTML = "";
+        div.innerHTML = ""; //Clear 'No History to Display' message
         var copyIcon = document.createElement("i");
         copyIcon.classList.add("fas", "fa-copy");
 
@@ -62,51 +50,16 @@ function displayCodes() {
             div.appendChild(entry);
         }
     }
-
-
-    
 }
 
-//Takes a date in the past and finds a corresponding string that describes how long ago it was.
-function formatDate(date) {
-
-    var scanDate = new Date(date); //Date of QR scan
-    var today = new Date();
-    var yesterday = new Date();
-    yesterday.setDate(yesterday.getDate()-1); //Today - 1 day
-    var difference = today - scanDate; //Time (ms) between today and date of QR scan
-
-    //Same day?
-    var comp1 = today.toLocaleDateString("en-GB");
-    var comp2 = scanDate.toLocaleDateString("en-GB");
-    if (comp1 == comp2) {
-        return "Today";
-    }
-
-    //Yesterday?
-    if (scanDate.getDate() === yesterday.getDate()) {
-        return "Yesterday";
-    }
-
-    //x days ago?
-    difference = difference / 3600000; //milliseconds -> hours
-    difference = difference / 24; //hours - > days
-    if (difference < 2) {
-        return "1 day ago";
-    } else if (difference < 30) {
-        return (Math.floor(difference) + " days ago");
-    }
-
-    //x months ago?
-    if (difference < 365) {
-        return (Math.floor(difference / 30) + " months ago");
-    }
-
-    //x years ago?
-    difference = difference / 365; //days -> years
-    return (Math.floor(difference) + " years ago");
-
+//If a code was just scanned, store it using this function.
+function storeCode(currentCode) {
+    //Fetch the previously scanned codes from local flat file
+    var previousCodes = JSON.parse(localStorage.getItem("previous-codes")) || [];
+    //Append current code onto history of codes
+    previousCodes.push({code : currentCode, time : new Date().toISOString()});
+    //Convert previousCodes to JSON string and store in browser flat file
+    localStorage.setItem("previous-codes",JSON.stringify(previousCodes));
 }
 
-export { displayCodes,storeCode,formatDate };
-
+export { displayCodes,storeCode }; //=> qr-scanner.js

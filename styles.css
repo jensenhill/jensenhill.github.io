@@ -205,6 +205,10 @@ a.data-container {
     display:block;
     margin-left:auto;
     margin-right:auto;
+    /**/
+    display:flex;
+    justify-content:center;
+    align-items:center;
     
     border-radius:30px;
     width:90%;
@@ -224,8 +228,6 @@ a.data-container {
     
     /*Video completely covers .camera-container's element*/
     object-fit:cover;
-    position:relative;
-    z-index:1;
 }
 
 .loading-bar {
@@ -237,7 +239,8 @@ a.data-container {
     width:80%;
 }
 
-.notification {
+/*Rest of scan success is under Export Menu section */
+.notification,.scan-success {
     font-family:'Roboto', sans-serif;
     opacity:0;
     width:100%;
@@ -257,7 +260,7 @@ a.data-container {
 /* QR History Container */
 /* =============================================*/
 
-.history-error {
+.no-data {
     color:rgb(53, 53, 53);
     font-size:25px;
     text-align:center;
@@ -327,25 +330,68 @@ a.data-container {
 }
 
 /* =============================================*/
-/* Export Data Button */
+/* Menu & Export Data Button */
 /* =============================================*/
 
-#export-button {
-    cursor: pointer;
-    padding:10px;
-    background-color:rgb(255, 238, 0);
-    color:rgb(0, 0, 0);
-    visibility: hidden;
-
+.export-menu {
+    /* Make menu invisible until code scanned */
+    visibility:hidden;
     position:absolute;
-    top:50%;
-    left:50%;
-    transform: translate(-50%,-50%);
+    z-index:1;
+    width:100%;
+    height:100%;
+
+    /* Flexbox */
+    display:flex;
+    flex-wrap:nowrap;
+    flex-direction:column;
+
+    justify-content:center;
+    align-content:center;
 }
 
-#export-button:hover {
-    background-color:rgb(255, 196, 0);
+.export-top, .export-bottom {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:row;
+    width:100%;
+    height:100%;
+
+    color:black;
+    font-family:'Roboto', sans-serif;
+    font-size:30px;
+    text-decoration:none;
+    cursor:pointer;
 }
+
+.export-top {
+    background-color: #85FFBD;
+    background-image: linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%);
+    border-left: 3px solid rgb(54, 0, 0);
+    border-top: 3px solid rgb(54, 0, 0);
+    border-bottom: 1.5px solid rgb(54, 0, 0);
+    border-right: 3px solid rgb(54, 0, 0);
+    border-radius: 30px 30px 0 0;
+}
+
+.export-bottom {
+    background-color: #FBAB7E;
+    background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
+    border-left: 3px solid rgb(54, 0, 0);
+    border-bottom: 3px solid rgb(54, 0, 0);
+    border-top: 1.5px solid rgb(54, 0, 0);
+    border-right: 3px solid rgb(54, 0, 0);
+    border-radius: 0 0 30px 30px;
+}
+
+.scan-success {
+    position:absolute;
+    margin-top:0px;
+    font-size:50px;
+}
+
+
 
 /* =============================================*/
 /* Footer

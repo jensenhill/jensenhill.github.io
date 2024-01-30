@@ -8,8 +8,8 @@
         <link rel="icon" type="image/png" href="assets/favicon.png">
         <link rel="stylesheet" href="styles.css">
 
+        <script type="module" src="javascript/qr-export.js"></script>
         <script type="module" src="javascript/qr-scanner.js"></script>
-        <script src="javascript/qr-export.js"></script>
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.13.1/cdn/themes/light.css" />
         <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.13.1/cdn/shoelace-autoloader.js"></script>
@@ -71,7 +71,7 @@
             <div class="flex-box-left">
                 <h1 class="title">QR History</h1>
                 <sl-divider style="--color: black; --width: 3px"></sl-divider>
-                <div id="history-container"></div>
+                <div id="history-container"><!-- Elements inserted by JS here --></div>
                 <sl-divider style="--color: black; --width: 3px"></sl-divider>
             </div>
 
@@ -82,9 +82,27 @@
                     <video id="camera"></video> <!-- Display camera stream to user -->
 
                     <!-- Export data button -->
-                    <button id="export-button" title="Export via Email" onclick="exportCode()">
-                        <i class="fa-solid fa-share-from-square"></i>
-                    </button>
+                    <div class="export-menu" id="export-menu">
+                        <a class="export-top">
+                            <sl-icon name="qr-code-scan"></sl-icon>
+                            <p style="padding-left:10px;">Scan Again</p>
+                        </a>
+
+                        <!-- Notify the user that the code was successfully scanned -->
+                        <sl-badge variant="success" class="scan-success" id="success" style="font-size:max(30px, 1em);" pill>
+                            QR Code Scanned
+                        </sl-badge>
+
+                        <a class="export-bottom" title="Send the code contents in an email.">
+                            <sl-icon name="envelope-arrow-up"></sl-icon>
+                            <p style="padding-left:10px;">Export via Email</p>
+                        </a>
+                        
+                        
+                        <!-- <button id="export-button" title="Export via Email" onclick="exportCode()">
+                            <i class="fa-solid fa-share-from-square"></i>
+                        </button> -->
+                    </div>
                 </div>
 
                 <!-- <h1 class="text" id="status">Awaiting camera permission</h1> -->
@@ -102,18 +120,14 @@
                     Searching for a QR Code...
                 </sl-badge>
 
-                <!-- Notify the user that the code was successfully scanned -->
-                <sl-badge variant="success" class="notification" id="success" style="font-size:max(30px, 1em);" pill>
-                    QR Code Successfully Scanned
-                </sl-badge>
-
             </div>
 
             <!--Container for the QR code's data -->
             <div class="flex-box-right">
-                <div id="data-container">
-                    <h1 class="title">QR Data</h1>
-                </div>
+                <h1 class="title">QR Data</h1>
+                <sl-divider style="--color: black; --width: 3px"></sl-divider>
+                <div id="data-container"><!-- Elements inserted by JS here --></div>
+                <sl-divider style="--color: black; --width: 3px"></sl-divider>
             </div>
 
         </div>

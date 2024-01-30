@@ -1,4 +1,14 @@
-function exportCode() {
+import { restart } from './qr-scanner.js';
+
+//Listen for when the export button (<a>) is clicked
+var exportButton = document.querySelector(".export-top");
+exportButton.addEventListener("click", function() {
+    restart(); //=> qr-scanner.js
+});
+
+//Listen for when the scan another code button (<a>) is clicked
+var restartButton = document.querySelector(".export-bottom");
+restartButton.addEventListener("click", function() {
     //Get the decoded data
     var outputLines = document.querySelectorAll("p.data-container");
     
@@ -15,4 +25,4 @@ function exportCode() {
     emailString += "%0D%0Awww.jensenhill.github.io";
     
     window.location.href = emailString; //Open email client
-}
+});
