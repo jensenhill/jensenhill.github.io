@@ -8,7 +8,7 @@ function displayCodes() {
     //Fetch the previously scanned codes from local flat file
     var previousCodes = JSON.parse(localStorage.getItem("previous-codes")) || [];
     var div = document.getElementById("history-container");
-
+    
     //Check if there are any codes in the log
     if (previousCodes.length == 0) {
         //Inform user there is no history
