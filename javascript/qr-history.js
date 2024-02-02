@@ -8,7 +8,7 @@ function displayCodes() {
     //Fetch the previously scanned codes from local flat file
     var previousCodes = JSON.parse(localStorage.getItem("previous-codes")) || [];
     var div = document.getElementById("history-container");
-    
+
     //Check if there are any codes in the log
     if (previousCodes.length == 0) {
         //Inform user there is no history
@@ -23,6 +23,7 @@ function displayCodes() {
         var copyIcon = document.createElement("i");
         copyIcon.classList.add("fas", "fa-copy");
 
+        //Loop backwards - oldest code at [0] newest code at [.length]
         for (var i = previousCodes.length-1; i >= 0; i--) {       
 
             //QR code data
