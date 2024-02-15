@@ -1,3 +1,5 @@
+import { scanURL } from './url-scan.js';
+
 //Now we've scanned the QR code, we need to output the appropriate contents.
 function outputData(codeData) {
 
@@ -6,14 +8,9 @@ function outputData(codeData) {
 
     switch(dataType) {
         case 0: //URL
-            outputType("URL"); //Output the data type
-
-            var weburl = document.createElement("a"); //Create clickable URL element
-            weburl.href = codeData; //Assign URL to element
-            weburl.textContent = codeData; //Assign text to be same as URL
-            weburl.classList.add("data-container"); //Add element to the data-container class
             
-            outputLine(weburl);
+            outputType("URL"); //Output the data type
+            outputURL(codeData);
 
             break;
 
@@ -37,7 +34,6 @@ function outputData(codeData) {
             //MAILTO URI
             else 
             {
-                
                 codeData = codeData.substr(7); //Cut out the identifier
 
                 var addressIndex = codeData.indexOf("?");
@@ -731,6 +727,9 @@ function outputData(codeData) {
             outputType("An error occured"); //Output the lack of data type
             break;
     }
+
+    outputRaw(codeData);
+    
 }
 
 //Finding the type of data encoded in a QR code and returning the corresponding integer.
@@ -861,6 +860,8 @@ function outputType(dataTypeText) {
     div.appendChild(p);
 }
 
+//Output the line of data to the qr-data container.
+//Note: URLs are to be output using the function outputURL (below).
 function outputLine(line) {
     var div = document.getElementById("data-container"); //Place new element in appropriate container.
     var tempElement = document.createElement("p"); //Create temporary <p> element
@@ -870,12 +871,41 @@ function outputLine(line) {
     div.appendChild(tempElement); //Push the new element to the page
 }
 
+function outputURL(url) {
+    //Create the URL <a> element
+    var div = document.getElementById("data-container"); //Place new element in appropriate container.
+    var weburl = document.createElement("a"); //Create clickable URL element
+    weburl.href = url; //Assign URL to element
+    weburl.textContent = url; //Assign text to be same as URL
+    weburl.classList.add("data-container"); //Add element to the data-container class
+    
+    //Create an 'open link' icon to accompany link
+    var icon = document.createElement("sl-icon");
+    icon.setAttribute("name","box-arrow-in-right");
+    icon.style = "display:flex;align-self:center;margin-left:3px;";
+
+    //Append new elements to the page
+    weburl.appendChild(icon);
+    div.appendChild(weburl); //Push the new element to the page
+    
+    scanURL(url); //Now commence the malware scan on the URL
+}
+
 function noData() {
     var div = document.getElementById("data-container");
     var error = document.createElement("h1");
     error.textContent = "No data to display...";
     error.classList.add("no-data");
     div.appendChild(error);
+}
+
+function outputRaw(codeData) {
+    var div = document.getElementById("data-container");
+    var details = document.createElement("sl-details");
+    details.setAttribute("summary","View Raw Data");
+    details.innerText = codeData;
+    details.style = "margin-top:15px;"
+    div.appendChild(details);
 }
 
 export { outputData, noData }; //=> qr-scanner.js

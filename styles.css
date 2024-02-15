@@ -1,5 +1,10 @@
+/* =============================================*/
+/* Global
+/* =============================================*/
+
 * {
     box-sizing: border-box;
+    font-family: sans-serif;
 }
 
 *::selection {
@@ -19,6 +24,12 @@ body {
     --sl-font-size-small:1.3rem;
 }
 
+.title {
+    text-align: center;
+    font-size:30px;
+    padding-bottom:5px;
+}
+
 /* =============================================*/
 /* Header
 /* =============================================*/
@@ -33,15 +44,15 @@ body {
     border-bottom: 3px solid rgb(54, 0, 0);
 }
 
-.flex-center {
+.header-center {
     flex:50%;
 }
 
-.flex-left {
+.header-left {
     flex:25%;
 }
 
-.flex-right {
+.header-right {
     flex:25%;
     display: flex;
     align-items: center;
@@ -64,36 +75,25 @@ img.header {
 
 @media (max-width:800px) {
 
-    .flex-center, .flex-right {
+    .header-center, .header-right {
         flex: 100%;
     }
 
-    .flex-left {
+    .header-left {
         flex:0%;
     }
 
 }
 
 /* =============================================*/
-/* Misc
-/* =============================================*/
-
-.text {
-    text-align: center;
-    font-size:40px;
-    font-family: 'Roboto', sans-serif;
-}
-
-.title {
-    text-align: center;
-    font-size:30px;
-    font-family: 'Roboto', sans-serif;
-    padding-bottom:5px;
-}
-
-/* =============================================*/
 /* Flex box (responsive)
 /* =============================================*/
+/*
+    - flex-box: contains flex-box-central, flex-box-left & flex-box-right
+    - flex-box-left: QR code history
+    - flex-box-central: Camera stream
+    - flex-box-right: QR code data output
+*/
 
 .flex-box {
     margin-top:40px;
@@ -110,23 +110,12 @@ img.header {
     flex:30%;
     max-width:30%;
     max-height: 600px;
-    background-color:rgb(178, 202, 235);
     border-radius:30px;
     padding:20px;
     overflow-y: scroll;
     margin-left:20px;
     margin-right:20px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.388);
-}
-
-.flex-box-left {
-    margin-left:20px;
-    background-color: #8BC6EC;
-    background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
-}
-
-.flex-box-right {
-    margin-right:20px;
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.388); */
 }
 
 @media (max-width:800px) {
@@ -162,6 +151,11 @@ img.header {
 /* QR Data Container */
 /* =============================================*/
 
+.flex-box-right {
+    background: rgb(244,214,23);
+    background: linear-gradient(298deg, rgba(244,214,23,1) 0%, rgba(226,147,13,1) 100%); 
+}
+
 #status {
     text-align: center;
     font-size:40px;
@@ -169,29 +163,42 @@ img.header {
     color:red;
 }
 
+.data-container {
+    text-align: center;
+    font-size:22px;
+    color:black;
+    margin:3px;
+}
+
 /* Element displaying the QR Code data type */
 #data-type {
     text-align: center;
-    font-size:40px;
-    font-family: 'Roboto', sans-serif;
-    color:green;
-
+    font-size:30px;
     margin:10px;
+    font-weight:bold;
 }
 
-.data-container {
-    text-align: center;
-    display:block;
-    font-size:30px;
-    font-family: 'Roboto', sans-serif;
-    color:green;
-    
-    margin:3px;
+a.data-container, .url-scan {
+    display:flex;
+    justify-content:center;
 }
 
 a.data-container {
     color:rgb(0, 110, 255);
+    margin-bottom:20px;
 }
+
+.disclaimer {
+    display:flex;
+    align-items:center;
+    font-size:13px;
+}
+
+.risk-bar {
+    border: 2px solid black;
+    border-radius: 50px;
+}
+
 
 /* =============================================*/
 /* Camera Stream Container */
@@ -205,7 +212,6 @@ a.data-container {
     display:block;
     margin-left:auto;
     margin-right:auto;
-    /**/
     display:flex;
     justify-content:center;
     align-items:center;
@@ -213,7 +219,7 @@ a.data-container {
     border-radius:30px;
     width:90%;
     aspect-ratio:1/1;
-    max-width: 500px;
+    max-width:500px;
 
     background: rgb(33,139,205);
     background: radial-gradient(circle, rgba(33,139,205,1) 0%, rgba(32,39,120,1) 100%); 
@@ -241,7 +247,6 @@ a.data-container {
 
 /*Rest of scan success is under Export Menu section */
 .notification,.scan-success {
-    font-family:'Roboto', sans-serif;
     opacity:0;
     width:100%;
     justify-content:center;
@@ -260,6 +265,11 @@ a.data-container {
 /* QR History Container */
 /* =============================================*/
 
+.flex-box-left {
+    background-color: #8BC6EC;
+    background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+}
+
 .no-data {
     color:rgb(53, 53, 53);
     font-size:25px;
@@ -267,7 +277,6 @@ a.data-container {
     font-style:italic;
     padding-top:50px;
     padding-bottom:50px;
-    font-family:'Roboto', sans-serif;
 }
 
 .history-entry {
@@ -278,7 +287,6 @@ a.data-container {
     font-size:0.5vw;
     padding:5px;
     display:flex;
-    font-family:'Roboto', sans-serif;
     margin-bottom:5px;
     text-decoration:none;
 }
@@ -288,6 +296,7 @@ a.data-container {
     background: linear-gradient(135deg, rgba(15,18,134,1) 0%, rgba(75,0,163,1) 100%); 
 }
 
+/*When the user hovers over the entry, change all text colour to white for contrast*/
 .history-entry:hover .history-entry-code,
 .history-entry:hover .history-entry-date,
 .history-entry:hover .history-button {
@@ -359,7 +368,6 @@ a.data-container {
     height:100%;
 
     color:black;
-    font-family:'Roboto', sans-serif;
     font-size:30px;
     text-decoration:none;
     cursor:pointer;
@@ -391,8 +399,6 @@ a.data-container {
     font-size:50px;
 }
 
-
-
 /* =============================================*/
 /* Footer
 /* =============================================*/
@@ -401,7 +407,6 @@ a.data-container {
     background-color:rgb(137, 14, 14);
     padding-top:10px;
     padding-bottom:10px;
-    font-family: 'Roboto', sans-serif;
     text-align: center;
     color:white;
     height: 2.5rem;

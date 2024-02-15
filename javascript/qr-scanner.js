@@ -110,7 +110,7 @@ function start() {
 
 function restart() {
     
-    videoStream.style.display = "block"; //Return the camera - this takes the longest, so it must be first
+    videoStream.style.display = "block"; //Return the camera - this takes the most time, so it must be prioritised.
     
     document.getElementById("export-menu").style.visibility = "hidden"; //Make export data menu invisible
     document.getElementById("export-menu").style.display = "none"; //Ensure menu does not affect camera <video>
@@ -122,4 +122,4 @@ function restart() {
     start(); //Call the initial function all over again
 }
 
-export { restart }; //qr-export.js calls the restart function as the restart button is on its menu
+export { restart }; //qr-export.js calls the restart function (the restart button is on the export menu)

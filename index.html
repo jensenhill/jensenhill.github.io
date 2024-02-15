@@ -8,26 +8,30 @@
         <link rel="icon" type="image/png" href="assets/favicon.png">
         <link rel="stylesheet" href="styles.css">
 
+        <!-- Local JavaScript -->
         <script type="module" src="javascript/qr-export.js"></script>
         <script type="module" src="javascript/qr-scanner.js"></script>
+        <script type="module" src="javascript/qr-history.js"></script>
         <script type="module" src="javascript/url-scan.js"></script>
 
+        <!-- Imported JavaScript -->
+        <script src="https://unpkg.com/jsqr"></script> <!-- Import jsQR library -->
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script> <!-- Import axios library --> 
 
+        <!-- Shoelace Stylesheets (UI) -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.13.1/cdn/themes/light.css" />
         <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.13.1/cdn/shoelace-autoloader.js"></script>
-        <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.13.1/cdn/components/copy-button/copy-button.js"></script>
-
     </head>
 
     <header>
         <div class="header">
-            <div class="flex-left">
+            <div class="header-left">
                 <div class="empty-button"></div>
             </div>
-            <div class="flex-center">
+            <div class="header-center">
                 <img src="assets/Banner White.png" alt="QR Inspector Logo" class="header">
             </div>
-            <div class="flex-right">
+            <div class="header-right">
                 <div class="wiki-button">
                     <sl-button variant="default" href="https://github.com/jensenhill/jensenhill.github.io/wiki" target="_blank">
                         <sl-icon slot="prefix" name="book"></sl-icon>
@@ -40,15 +44,6 @@
 
     <body>
 
-        <script src="https://unpkg.com/jsqr"></script> <!-- Import jsQR library -->
-        
-        <!--Font Library -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap" rel="stylesheet">
-        <script src="https://kit.fontawesome.com/1aedc2e9fe.js" crossorigin="anonymous"></script>
-        <!----------------->
-
         <!-- Screen Reader -->
         <sl-visually-hidden>
             Message to those using a screen reader.
@@ -56,7 +51,7 @@
             This will allow the device to read a QR code automatically.
         </sl-visually-hidden>
 
-        <!-- Error Alerts -->
+        <!-- Error Alerts: camera access denied & camera not found -->
         <sl-alert variant="danger" id="camera-denied" style="font-size:30px;" class="alert" closable>
             <sl-icon slot="icon" name="exclamation-triangle"></sl-icon>
             The application requires camera access to function. 
@@ -71,7 +66,7 @@
 
 
         <!-- Begin Elements -->
-
+        
         <div class="flex-box">
 
             <!-- QR Code History -->
@@ -81,7 +76,7 @@
                 <div id="history-container"><!-- Elements inserted by JS here --></div>
                 <sl-divider style="--color: black; --width: 3px"></sl-divider>
             </div>
-
+            
             <!-- Camera Stream -->
             <div class="flex-box-central">
 
@@ -104,15 +99,9 @@
                             <sl-icon name="envelope-arrow-up"></sl-icon>
                             <p style="padding-left:10px;">Export via Email</p>
                         </a>
-                        
-                        
-                        <!-- <button id="export-button" title="Export via Email" onclick="exportCode()">
-                            <i class="fa-solid fa-share-from-square"></i>
-                        </button> -->
+
                     </div>
                 </div>
-
-                <!-- <h1 class="text" id="status">Awaiting camera permission</h1> -->
                 
                 <!-- Notify user that the application is awaiting camera access -->
                 <sl-badge variant="danger" class="notification" id="waiting" style="font-size:max(30px, 1em);" pill pulse>
@@ -129,7 +118,7 @@
 
             </div>
 
-            <!--Container for the QR code's data -->
+            <!--Container for the QR code's data output -->
             <div class="flex-box-right">
                 <h1 class="title">QR Data</h1>
                 <sl-divider style="--color: black; --width: 3px"></sl-divider>
@@ -139,8 +128,7 @@
 
         </div>
 
-        <div style="padding-bottom: 2.5rem;"></div>
-        
+        <div style="padding-bottom: 2.5rem;"></div> <!-- Keep footer at bottom of page -->
 
     </body>
 
@@ -149,8 +137,5 @@
             Copyright &copy 2024 QR Inspector
         </div>
     </footer>
-
-
-    <script src="javascript/qr-history.js"></script>
 
 </html>
