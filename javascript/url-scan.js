@@ -16,7 +16,8 @@ function scanURL(url) {
         url: "https://www.virustotal.com/api/v3/urls", //VirusTotal API endpoint
         headers: {
             accept: "application/json",
-            "x-apikey": ${{ API_KEY }}, //Hide API key as secret token
+            "x-apikey": `${API_KEY}`, //Hide API key as secret token
+            //"x-apikey": "6b2ff3cebc36c6d410fe7d1093fc388aac8e2a7ad0db1db2f09e8342400d287c", //Hide API key as secret token
             "content-type": "application/x-www-form-urlencoded"
         },
         data: urlParameter, //Insert the URL (to be scanned) into the body
@@ -36,7 +37,8 @@ function scanURL(url) {
                 url: `https://www.virustotal.com/api/v3/analyses/${analysisId}`, //Insert analysisID into URL
                 headers: {
                     accept: "application/json",
-                    "x-apikey": ${{ API_KEY }}, //Hide API key as secret token
+                    "x-apikey": `${API_KEY}`, //Hide API key as secret token
+                    //"x-apikey": "6b2ff3cebc36c6d410fe7d1093fc388aac8e2a7ad0db1db2f09e8342400d287c", //Hide API key as secret token
                     "content-type": "application/x-www-form-urlencoded"
                 },
             };
