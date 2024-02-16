@@ -98,10 +98,13 @@ function start() {
                     }
                     else if (terminate === true) 
                     {   
-                        //Device does not have a camera
-                        const alert = document.getElementById("camera-not-found");
-                        alert.style.opacity = 1;
-                        alert.show();
+                        //Timeout required to allow assets to load
+                        setTimeout(() => {
+                            //Device does not have a camera
+                            const alert = document.getElementById("camera-not-found");
+                            alert.style.opacity = 1;
+                            alert.show();
+                        },3000);
                     }
                 }
         })
