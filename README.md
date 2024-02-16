@@ -5,10 +5,11 @@ QR Inspector is a single page web application (SPA) designed to improve QR code 
 # Installation
 The application must be run on a server; it uses JavaScript modules, which require the HTTP(S) protocol. Please follow the instructions below for running the application on a live server using Visual Studio Code (VS Code).
 
-### Requirements:
+### What you'll need:
 - Camera device (built-in camera, web-cam, etc)
-- Run on a live server (e.g. Live Server extension on VS Code, see instructions for more info)
-- Compatible browser (see more here)
+- Live server (e.g. Live Server extension on VS Code, see instructions for more info)
+- Compatible browser ([latest version of major browsers](https://github.com/jensenhill/jensenhill.github.io/wiki/Supported-Devices-&-Browsers))
+- QR Codes to test (we've provided a few here)
 
 ## Installing VS Code
 1. Download and install the latest version for your operating system (https://code.visualstudio.com/Download).
