@@ -14,7 +14,8 @@
 
 body {
     position: relative;
-    min-height: 98.25vh;
+    min-height:100vh;
+    margin:0px;
 }
 
 .alert {
@@ -36,7 +37,6 @@ body {
 
 .header {
     background-color:rgb(137, 14, 14);
-    margin:-10px;
     padding-top:10px;
     padding-bottom:10px;
     display:flex;
@@ -88,12 +88,6 @@ img.header {
 /* =============================================*/
 /* Flex box (responsive)
 /* =============================================*/
-/*
-    - flex-box: contains flex-box-central, flex-box-left & flex-box-right
-    - flex-box-left: QR code history
-    - flex-box-central: Camera stream
-    - flex-box-right: QR code data output
-*/
 
 .flex-box {
     margin-top:40px;
@@ -109,13 +103,14 @@ img.header {
 .flex-box-left, .flex-box-right {
     flex:30%;
     max-width:30%;
-    max-height: 600px;
+    margin-bottom:20px;
+}
+
+.history, .data {
     border-radius:30px;
     padding:20px;
     overflow-y: scroll;
-    margin-left:20px;
-    margin-right:20px;
-    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.388); */
+    max-height: 600px;
 }
 
 @media (max-width:800px) {
@@ -141,6 +136,11 @@ img.header {
         order:3;
     }
 
+    .history, .data {
+        margin-left:10px !important;
+        margin-right:10px !important;
+    }
+
     .history-entry *, time.history-entry-date {
         font-size:13px !important;
     }
@@ -151,7 +151,8 @@ img.header {
 /* QR Data Container */
 /* =============================================*/
 
-.flex-box-right {
+.data {
+    margin-right:20px;
     background: rgb(244,214,23);
     background: linear-gradient(298deg, rgba(244,214,23,1) 0%, rgba(226,147,13,1) 100%); 
 }
@@ -197,6 +198,27 @@ a.data-container {
 .risk-bar {
     border: 2px solid black;
     border-radius: 50px;
+}
+
+#scan-table {
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+#scan-table th, #scan-table td {
+    padding:3px;
+    border: 1px solid black;
+}
+
+#scan-table th {
+    background-color:rgb(63, 98, 99);
+    color:white;
+    padding:5px;
+    text-align:left;
+}
+
+#scan-table tr:nth-child(even) {
+    background-color:lightgrey;
 }
 
 
@@ -265,7 +287,8 @@ a.data-container {
 /* QR History Container */
 /* =============================================*/
 
-.flex-box-left {
+.history {
+    margin-left:20px;
     background-color: #8BC6EC;
     background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
 }
@@ -370,6 +393,7 @@ a.data-container {
     color:black;
     font-size:30px;
     text-decoration:none;
+    font-weight:bold;
     cursor:pointer;
 }
 
@@ -409,10 +433,10 @@ a.data-container {
     padding-bottom:10px;
     text-align: center;
     color:white;
+    font-weight:bold;
     height: 2.5rem;
     
     width:100%;
-    margin:-10px;
 
     position: absolute;
     bottom:0;

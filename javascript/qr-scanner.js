@@ -32,41 +32,43 @@ function start() {
                 
                 const canvas = document.createElement("canvas"); //Display video stream onto canvas
                 const renderingContext = canvas.getContext("2d"); //Rendering context as "2D"
-
+                
                 const frameAnalysis = () => {
-                    renderingContext.drawImage(videoStream, 0, 0, canvas.width, canvas.height); //Define height and width of frame + Draw frame to canvas.
-                    const imageData = renderingContext.getImageData(0,0, canvas.width, canvas.height); //Image data for canvas packaged into imageData.
-                    const code = jsQR(imageData.data, imageData.width, imageData.height); //jsQR function takes image data and returns object with QR info.
+                    setTimeout(() => {
+                        renderingContext.drawImage(videoStream, 0, 0, canvas.width, canvas.height); //Define height and width of frame + Draw frame to canvas.
+                        const imageData = renderingContext.getImageData(0,0, canvas.width, canvas.height); //Image data for canvas packaged into imageData.
+                        const code = jsQR(imageData.data, imageData.width, imageData.height); //jsQR function takes image data and returns object with QR info.
 
-                    //====================================================================================================================================
-                    //=====================================================   QR Code Found ==============================================================
-                    //====================================================================================================================================
-                    if (code) {
-                        console.log("The QR code was found: ", code.data); //Log data to console.
-                        
-                        stream.getTracks().forEach(track => track.stop()) //Terminate camera stream.
-                        videoStream.style.display = "none"; //Once terminated, hide the container (otherwise the screen will be black).
-                        
-                        document.getElementById("export-menu").style.position = "relative"; //Make next menu visible
-                        document.getElementById("export-menu").style.display = "flex"; //Remove the export data menu
+                        //====================================================================================================================================
+                        //=====================================================   QR Code Found ==============================================================
+                        //====================================================================================================================================
+                        if (code) {
+                            console.log("The QR code was found: ", code.data); //Log data to console.
+                            
+                            stream.getTracks().forEach(track => track.stop()) //Terminate camera stream.
+                            videoStream.style.display = "none"; //Once terminated, hide the container (otherwise the screen will be black).
+                            
+                            document.getElementById("export-menu").style.position = "relative"; //Make next menu visible
+                            document.getElementById("export-menu").style.display = "flex"; //Remove the export data menu
 
-                        document.getElementById("searching").style.opacity = 0; //Remove the "Searching for QR code" message
-                        document.getElementById("success").style.opacity = 1; //Reveal the "QR Code Successfully Scanned" message
+                            document.getElementById("searching").style.opacity = 0; //Remove the "Searching for QR code" message
+                            document.getElementById("success").style.opacity = 1; //Reveal the "QR Code Successfully Scanned" message
 
-                        outputData(code.data); //Output the QR code's data to the user
-                        storeCode(code.data); //Store the QR code in history
-                        displayCodes(); //Refresh the QR code history
+                            outputData(code.data); //Output the QR code's data to the user
+                            storeCode(code.data); //Store the QR code in history
+                            displayCodes(); //Refresh the QR code history
 
-                        document.getElementById("export-menu").style.visibility = "visible"; //Let the user export the code's data
+                            document.getElementById("export-menu").style.visibility = "visible"; //Let the user export the code's data
 
-                        return;
-                    }
-                    //QR Code NOT Found (null object)
-                    else {
-                        console.log("The QR code was not found."); //Log error to console
-                    }
+                            return;
+                        }
+                        //QR Code NOT Found (null object)
+                        else {
+                            console.log("The QR code was not found."); //Log error to console
+                        }
 
-                    requestAnimationFrame(frameAnalysis)
+                        requestAnimationFrame(frameAnalysis);
+                    },200);
                 };
 
                 frameAnalysis(); //Loop

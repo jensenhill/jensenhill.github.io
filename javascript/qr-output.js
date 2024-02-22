@@ -3,6 +3,7 @@ import { scanURL } from './url-scan.js';
 //Now we've scanned the QR code, we need to output the appropriate contents.
 function outputData(codeData) {
 
+    var codeDataOriginal = codeData;
     var dataType = parseInt(findType(codeData)); //Find the data type of QR code contents.
     codeData = decodeURIComponent(codeData); //Replace ASCII encoding references with their ASCII character (if applicable)
 
@@ -728,7 +729,7 @@ function outputData(codeData) {
             break;
     }
 
-    outputRaw(codeData);
+    outputRaw(codeDataOriginal);
     
 }
 
@@ -875,9 +876,13 @@ function outputURL(url) {
     //Create the URL <a> element
     var div = document.getElementById("data-container"); //Place new element in appropriate container.
     var weburl = document.createElement("a"); //Create clickable URL element
+    weburl.id = "URL";
     weburl.href = url; //Assign URL to element
     weburl.textContent = url; //Assign text to be same as URL
     weburl.classList.add("data-container"); //Add element to the data-container class
+    weburl.setAttribute("onclick","return confirm('The URL has not been scanned yet. Are you sure you want to proceed?')"); //Prompt user they may not want to open the link yet
+    weburl.setAttribute("target","_blank");
+
     
     //Create an 'open link' icon to accompany link
     var icon = document.createElement("sl-icon");
@@ -899,13 +904,14 @@ function noData() {
     div.appendChild(error);
 }
 
-function outputRaw(codeData) {
+function outputRaw(codeDataOriginal) {
     var div = document.getElementById("data-container");
     var details = document.createElement("sl-details");
     details.setAttribute("summary","View Raw Data");
-    details.innerText = codeData;
+    details.innerText = codeDataOriginal;
     details.style = "margin-top:15px;"
     div.appendChild(details);
+    
 }
 
 export { outputData, noData }; //=> qr-scanner.js

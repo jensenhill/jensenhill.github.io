@@ -1,5 +1,5 @@
 //IMPORTANT - You need to insert the API key below. This only needs to be done once.
-const API_KEY = "INSERT-HERE";
+const API_KEY = "6b2ff3cebc36c6d410fe7d1093fc388aac8e2a7ad0db1db2f09e8342400d287c";
 
 var attempts = 0;
 function scanURL(url) {
@@ -48,18 +48,34 @@ function scanURL(url) {
 
                 axios
                 .request(secondConfigs)
-                .then(function (response) { //Promose chain again, execute if successful
+                .then(function (response) { //Promise chain again, execute if successful
                     
                     const detailedResults = response.data; //Extract the scan results from JSON
+
+                    console.log(detailedResults);
+
+
                     if (detailedResults.data.attributes.status == "completed") {
                         const detectedEngines = detailedResults.data.attributes.results; //Extract number of triggers detected
                         
                         document.getElementById("malware-badge").remove(); //Remove the loading icon
 
                         var risk = calculateRisk(detectedEngines,url);
-                        console.log(risk);
+
+                        //Change the prompt that opens when a user clicks the URL
+                        var urlElement = document.getElementById("URL");
+                        if (risk == 0) { //If safe, remove prompt
+                            urlElement.removeAttribute("onclick");
+                        } else { //Assume dangerous, so re-word prompt
+                            urlElement.setAttribute("onclick",`return confirm('This URL has a risk of ${risk}%. Are you sure you want to proceed?')`);
+                        }
+
+                        //Get the full entries for all malicious and suspicious entries - used to output the detailed results
+                        var triggeredEngines = Object.values(detectedEngines).filter((result) => result.category === "malicious" || result.category === "suspicious");
+
                         outputRisk(risk);
                         scanDisclaimer(); //Output a disclaimer
+                        scanDetails(triggeredEngines, url); //Output the detailed scan results
                         attempts = 0; //Reset attempts back to 0
 
                     } else {
@@ -67,7 +83,7 @@ function scanURL(url) {
                         if (attempts < 2) {
                             attempts++;
                             setTimeout(() => {
-                                scanURL();
+                                scanURL(url);
                             }, 8000);                 
                         } else {
                             scanUnavailable();
@@ -79,7 +95,7 @@ function scanURL(url) {
                     scanUnavailable(); //Inform user that we could not provide a malware scan
                 });
 
-            },5000); //delay 5 secs
+            },3000); //delay 5 secs
 
         })
         .catch(function (error) {
@@ -99,15 +115,16 @@ function calculateRisk(detectedEngines, url) {
         score += 0.4;
     }
 
-    //Check VirusTotal analysis - weighting log(count) * 20%
-    const numMalicious = Object.values(detectedEngines).filter((result) => result.category === 'malicious').length;
+    //Check VirusTotal analysis - weighting log(count) * 20% [malicious] (or 10% [suspicious])
+    const numMalicious = Object.values(detectedEngines).filter((result) => result.category === "malicious").length;
     score += Math.log(numMalicious + 1) * 0.2;
 
-    const numSuspicious = Object.values(detectedEngines).filter((result) => result.category === 'suspicious').length;
+    const numSuspicious = Object.values(detectedEngines).filter((result) => result.category === "suspicious").length;
     score += Math.log(numSuspicious + 1) * 0.1;
 
-    console.log(`(Malicious) Detected by ${numMalicious} engines.`);
-    console.log(`(Suspicious) Detected by ${numSuspicious} engines.`);
+    //Testing:
+    //console.log(`(Malicious) Detected by ${numMalicious} engines.`);
+    //console.log(`(Suspicious) Detected by ${numSuspicious} engines.`);
 
     //Calculate percentage
     score = score * 100;
@@ -130,7 +147,7 @@ function outputRisk(risk) {
     //Set colour of bar based on risk level
     if (risk == 0) {
         bar.style = "--track-color:forestgreen;";
-        label += ("(Safe)");
+        label += ("(Nothing Suspicious)");
     } else if (risk < 15) {
         bar.style = "--track-color:white; --indicator-color:limegreen;";
         label += ("(Likely Safe)");
@@ -225,6 +242,92 @@ function scanDisclaimer() {
     disclaimer.appendChild(disclaimerText);
 
     div.insertBefore(disclaimer,div.lastChild);
+
+}
+
+function scanDetails(triggeredEngines, url) {
+
+    //Create details tab
+    var tab = document.createElement("sl-details");
+    tab.setAttribute("summary","View Detailed Risks");
+    tab.style.backgroundColor = "yellow";
+    tab.style.border = "2px solid black";
+    tab.style.borderRadius = "6px";
+
+    const numMalicious = Object.values(triggeredEngines).filter((result) => result.category === "malicious").length;
+    const numSuspicious = Object.values(triggeredEngines).filter((result) => result.category === "suspicious").length;
+    
+    //Check if there were any triggered engines to display
+    if (numMalicious > 0 || numSuspicious > 0) {
+        tab.innerText = `This URL has been categorised as malicious by ${numMalicious} engine(s) and suspicious by ${numSuspicious} engine(s).`;
+
+        //Remember to output the results of the homograph check
+        if (detectCyrillic(url) == false) {
+            tab.innerText += "The URL does not contain any disingenuous (non-ASCII) characters.";
+        } else {
+            tab.innerText += "The URL contained disingenuous (non-ASCII) characters. Whilst it may seem genuine - it could be a homograph attack.";
+        }
+
+        //Create table of engines
+        var table = document.createElement("table");
+        table.style.marginTop = 
+        table.id = "scan-table";
+
+        //Create table header:
+        //===================
+        //| Engine | Threat | 
+        //===================
+        var tableRow = document.createElement("tr");
+        var tableHeader = document.createElement("th");
+        
+        tableHeader = document.createElement("th");
+        tableHeader.innerText = "Engine";
+        tableRow.appendChild(tableHeader);
+
+        tableHeader = document.createElement("th");
+        tableHeader.innerText = "Threat";
+        tableRow.appendChild(tableHeader);
+
+
+        table.appendChild(tableRow); //Append header (row) to table
+
+        //Add each entry to the table for all triggered engines
+        for (let i = 0; i < triggeredEngines.length; i++) {
+
+            var tableRow = document.createElement("tr"); //Create the row
+            var tableData = document.createElement("td"); //Create the table data cell
+
+            //Add engine name
+            tableData = document.createElement("td");
+            tableData.innerText = triggeredEngines[i].engine_name;
+            tableRow.appendChild(tableData);
+
+            //Add threat
+            tableData = document.createElement("td");
+            tableData.innerText = triggeredEngines[i].result;
+            tableRow.appendChild(tableData);
+
+            //Add the row to the table
+            table.appendChild(tableRow);
+        }
+
+        tab.appendChild(table); //Add the complete table to the tab
+
+    } else { //No triggered engines to display
+        tab.innerText = `This URL was not categorised as malicious or suspicious by engines.`;
+
+        //Remember to output the results of the homograph check
+        if (detectCyrillic(url) == false) {
+            tab.innerText += "The URL does not contain any disingenuous (non-ASCII) characters.";
+        } else {
+            tab.innerText += "The URL contained disingenuous (non-ASCII) characters. Whilst it may seem genuine - it could be a homograph attack.";
+        }
+    }
+    
+    var div = document.getElementById("data-container");
+    div.insertBefore(tab,div.lastChild);
+
+    //console.log(triggeredEngines);
 
 }
 

@@ -22,7 +22,6 @@ restartButton.addEventListener("click", function() {
     //Add the date & time to the bottom of the email
     var currentDate = new Date();
     emailString += "%0D%0AThis QR code was scanned on " + currentDate.toString();
-    emailString += "%0D%0Awww.jensenhill.github.io";
     
     window.location.href = emailString; //Open email client
 });
