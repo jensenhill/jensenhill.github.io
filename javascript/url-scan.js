@@ -110,6 +110,7 @@ function calculateRisk(detectedEngines, url) {
 
     var score = 0;
 
+    
     //Check homograph attack - weighting 40%
     if (detectCyrillic(url) == true) {
         score += 0.4;
