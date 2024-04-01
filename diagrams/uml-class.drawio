@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-04-01T18:57:39.022Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0" etag="LXqvNi_sB4bvddr3Ngew" version="24.2.1" type="github">
+<mxfile host="app.diagrams.net" modified="2024-04-01T19:12:41.058Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0" etag="NfBETPRCvjUDC1da6JLy" version="24.2.1" type="github">
   <diagram name="Page-1" id="9f46799a-70d6-7492-0946-bef42562c5a5">
     <mxGraphModel dx="1434" dy="820" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
       <root>
@@ -292,6 +292,9 @@
         </mxCell>
         <mxCell id="VXxcSdtV-oXkEHzaBl_M-119" value="0..1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;fontSize=14;fontColor=default;labelBackgroundColor=default;fontStyle=1" vertex="1" parent="1">
           <mxGeometry x="775" y="340" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="VXxcSdtV-oXkEHzaBl_M-120" value="&lt;div style=&quot;font-size: 13px;&quot;&gt;&lt;b style=&quot;font-size: 13px;&quot;&gt;DISCLAIMER:&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 13px;&quot;&gt;This is a loose class diagram. HTML/CSS classes are not like&amp;nbsp; &lt;br style=&quot;font-size: 13px;&quot;&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Helvetica;fontSize=13;fontColor=default;labelBackgroundColor=default;" vertex="1" parent="1">
+          <mxGeometry x="240" y="636" width="266" height="91" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
