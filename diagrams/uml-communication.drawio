@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2024-03-17T12:08:10.133Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0" etag="iZJJ5Eo7pyoHuAFd8s4f" version="24.0.7" type="github">
+<mxfile host="app.diagrams.net" modified="2024-04-02T14:59:19.473Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0" etag="1_m3DIH55Xp5N0GP93ac" version="24.2.1" type="github">
   <diagram name="Page-1" id="13e1069c-82ec-6db2-03f1-153e76fe0fe0">
-    <mxGraphModel dx="2868" dy="1640" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="1100" background="none" math="0" shadow="0">
+    <mxGraphModel dx="2206" dy="1262" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="1100" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -132,104 +132,71 @@
         </mxCell>
         <mxCell id="pt2JZulDlgeTbI0p0Ly0-53" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="657" y="485" as="sourcePoint" />
-            <mxPoint x="857" y="485" as="targetPoint" />
+            <mxPoint x="657" y="497.5" as="sourcePoint" />
+            <mxPoint x="857" y="497.5" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="pt2JZulDlgeTbI0p0Ly0-55" value="" style="endArrow=classic;html=1;rounded=0;dashed=1;dashPattern=8 8;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="857" y="515" as="sourcePoint" />
-            <mxPoint x="657" y="515" as="targetPoint" />
+            <mxPoint x="857" y="529.7" as="sourcePoint" />
+            <mxPoint x="657" y="529.7" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="pt2JZulDlgeTbI0p0Ly0-56" value="URL analysed with VirusTotal API" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="655" y="453" width="210" height="30" as="geometry" />
+        <mxCell id="pt2JZulDlgeTbI0p0Ly0-56" value="scanLoading(), sanURL(url), detectCyrillic(url)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="661.5" y="460" width="210" height="30" as="geometry" />
         </mxCell>
         <mxCell id="pt2JZulDlgeTbI0p0Ly0-49" value="Alternative" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;width=80;height=20;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
           <mxGeometry x="187" y="455" width="720" height="120" as="geometry" />
         </mxCell>
-        <mxCell id="pt2JZulDlgeTbI0p0Ly0-42" value="Scan result returned" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="657" y="484" width="210" height="35" as="geometry" />
+        <mxCell id="pt2JZulDlgeTbI0p0Ly0-42" value="calculateRisk(engines)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="661.5" y="497.5" width="210" height="35" as="geometry" />
         </mxCell>
-        <mxCell id="pt2JZulDlgeTbI0p0Ly0-58" value="" style="endArrow=classic;html=1;rounded=0;dashed=1;dashPattern=8 8;exitX=0.971;exitY=1.114;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="pt2JZulDlgeTbI0p0Ly0-60" edge="1">
+        <mxCell id="pt2JZulDlgeTbI0p0Ly0-58" value="" style="endArrow=classic;html=1;rounded=0;dashed=1;dashPattern=8 8;exitX=0.971;exitY=1.114;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="857" y="550" as="sourcePoint" />
+            <mxPoint x="655.9100000000003" y="553.99" as="sourcePoint" />
             <mxPoint x="297" y="550" as="targetPoint" />
           </mxGeometry>
-        </mxCell>
-        <mxCell id="pt2JZulDlgeTbI0p0Ly0-60" value="Scan result packaged and output" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="452" y="515" width="210" height="35" as="geometry" />
         </mxCell>
         <mxCell id="pt2JZulDlgeTbI0p0Ly0-62" value="outputData() outputLine() &lt;br&gt;outputType() findType()" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="457" y="407" width="210" height="30" as="geometry" />
         </mxCell>
         <mxCell id="pt2JZulDlgeTbI0p0Ly0-64" value="Alternative" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;width=80;height=20;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
-          <mxGeometry x="187" y="849" width="1320" height="106" as="geometry" />
+          <mxGeometry x="187" y="816" width="1463" height="106" as="geometry" />
         </mxCell>
         <mxCell id="pt2JZulDlgeTbI0p0Ly0-65" value="[If user wants to &lt;br&gt;export QR data]" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="188" y="640" width="110" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="pt2JZulDlgeTbI0p0Ly0-66" value="" style="endArrow=classic;html=1;rounded=0;exitX=1.055;exitY=-0.075;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="304.04999999999995" y="630" as="sourcePoint" />
-            <mxPoint x="1057" y="628" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="pt2JZulDlgeTbI0p0Ly0-67" value="Export button clicked" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="307" y="602" width="144" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="pt2JZulDlgeTbI0p0Ly0-69" value="" style="endArrow=classic;html=1;rounded=0;dashed=1;dashPattern=8 8;" parent="1" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="1057" y="658" as="sourcePoint" />
-            <mxPoint x="657" y="658" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="pt2JZulDlgeTbI0p0Ly0-70" value="QR data is requested" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="888" y="627" width="144" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="pt2JZulDlgeTbI0p0Ly0-73" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="657" y="695" as="sourcePoint" />
-            <mxPoint x="1057" y="695" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="pt2JZulDlgeTbI0p0Ly0-74" value="QR data request is answered" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;" parent="1" vertex="1">
-          <mxGeometry x="652" y="663" width="210" height="30" as="geometry" />
-        </mxCell>
         <mxCell id="pt2JZulDlgeTbI0p0Ly0-77" value="" style="endArrow=classic;html=1;rounded=0;dashed=1;dashPattern=8 8;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="1057" y="735" as="sourcePoint" />
-            <mxPoint x="298" y="735" as="targetPoint" />
+            <mxPoint x="1057" y="669" as="sourcePoint" />
+            <mxPoint x="298" y="669" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="pt2JZulDlgeTbI0p0Ly0-78" value="QR data is packaged into an email" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="861" y="703" width="195" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="pt2JZulDlgeTbI0p0Ly0-79" value="User&#39;s email client opened" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="297" y="703" width="160" height="30" as="geometry" />
+        <mxCell id="pt2JZulDlgeTbI0p0Ly0-79" value="window.location.href" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="871.5" y="640" width="160" height="30" as="geometry" />
         </mxCell>
         <mxCell id="pt2JZulDlgeTbI0p0Ly0-80" value="Alternative" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;width=80;height=20;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
-          <mxGeometry x="187" y="605" width="920" height="170" as="geometry" />
+          <mxGeometry x="187" y="605" width="920" height="85" as="geometry" />
         </mxCell>
         <mxCell id="pt2JZulDlgeTbI0p0Ly0-81" value="[If flat file&lt;br&gt; is not empty]" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
-          <mxGeometry x="198" y="895" width="90" height="40" as="geometry" />
+          <mxGeometry x="198" y="858" width="90" height="40" as="geometry" />
         </mxCell>
         <mxCell id="pt2JZulDlgeTbI0p0Ly0-82" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="657" y="806" as="sourcePoint" />
-            <mxPoint x="1257" y="806" as="targetPoint" />
+            <mxPoint x="660.5" y="730" as="sourcePoint" />
+            <mxPoint x="1260.5" y="730" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="pt2JZulDlgeTbI0p0Ly0-83" value="Data is sent to be stored in history" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="642.5" y="776" width="229" height="30" as="geometry" />
+        <mxCell id="pt2JZulDlgeTbI0p0Ly0-83" value="storeCode(currentCode)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="642.5" y="699" width="229" height="30" as="geometry" />
         </mxCell>
         <mxCell id="pt2JZulDlgeTbI0p0Ly0-84" value="Flat File" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="1398" y="125" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="pt2JZulDlgeTbI0p0Ly0-85" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="1257" y="835" as="sourcePoint" />
-            <mxPoint x="1457" y="835" as="targetPoint" />
+            <mxPoint x="1260" y="800" as="sourcePoint" />
+            <mxPoint x="1460" y="800" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="pt2JZulDlgeTbI0p0Ly0-86" value="" style="endArrow=none;dashed=1;html=1;rounded=0;strokeWidth=2;" parent="1" edge="1">
@@ -238,77 +205,63 @@
             <mxPoint x="1457.58" y="195" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="pt2JZulDlgeTbI0p0Ly0-87" value="Data entry added to flat file" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="1277" y="806" width="160" height="30" as="geometry" />
+        <mxCell id="pt2JZulDlgeTbI0p0Ly0-87" value="previousCodes.push({code : currentCode, time : new Date().toISOString()})" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="1280" y="750" width="160" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="pt2JZulDlgeTbI0p0Ly0-88" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
+        <mxCell id="e4fwFWyISSxIQLE3qlF9-1" value="Alternative" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;width=80;height=20;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="188" y="970" width="1320" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e4fwFWyISSxIQLE3qlF9-2" value="[If user scans &lt;br&gt;new QR code]" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="193" y="1000" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e4fwFWyISSxIQLE3qlF9-3" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="1257" y="875" as="sourcePoint" />
-            <mxPoint x="1457" y="875" as="targetPoint" />
+            <mxPoint x="1050" y="995.95" as="sourcePoint" />
+            <mxPoint x="460" y="996" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="pt2JZulDlgeTbI0p0Ly0-89" value="Read the data entries" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="1273" y="847" width="160" height="30" as="geometry" />
+        <mxCell id="Ghpkstk-haQidT64uBf1-1" value="&lt;div&gt;outputRisk(risk),&lt;/div&gt;&lt;div&gt;scanDetails(engines, url)&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="477" y="510" width="160" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="pt2JZulDlgeTbI0p0Ly0-90" value="Package and send QR history" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="1067" y="895" width="180" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="pt2JZulDlgeTbI0p0Ly0-93" value="" style="endArrow=classic;html=1;rounded=0;dashed=1;dashPattern=8 8;" parent="1" edge="1">
+        <mxCell id="Ghpkstk-haQidT64uBf1-2" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="1457" y="904" as="sourcePoint" />
-            <mxPoint x="1257" y="904" as="targetPoint" />
+            <mxPoint x="300" y="636" as="sourcePoint" />
+            <mxPoint x="1060" y="636" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="pt2JZulDlgeTbI0p0Ly0-94" value="Return the data entries" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="1280" y="874" width="160" height="30" as="geometry" />
+        <mxCell id="pt2JZulDlgeTbI0p0Ly0-67" value="exportButton.&amp;nbsp; addEventListener(&quot;click&quot;, function())" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="743" y="605" width="353" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="pt2JZulDlgeTbI0p0Ly0-95" value="" style="endArrow=classic;html=1;rounded=0;dashed=1;dashPattern=8 8;" parent="1" edge="1">
+        <mxCell id="Ghpkstk-haQidT64uBf1-3" value="Loop" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;width=80;height=20;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="1318" y="830" width="322" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="Ghpkstk-haQidT64uBf1-4" value="Each entry in flat file" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1318" y="858" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ghpkstk-haQidT64uBf1-5" value="" style="endArrow=classic;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="1256" y="925" as="sourcePoint" />
-            <mxPoint x="657" y="925" as="targetPoint" />
+            <mxPoint x="1458.05" y="850.97" as="sourcePoint" />
+            <mxPoint x="1458.05" y="890.97" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1500" y="850" />
+              <mxPoint x="1500" y="891" />
+            </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="pt2JZulDlgeTbI0p0Ly0-96" value="" style="endArrow=classic;html=1;rounded=0;dashed=1;dashPattern=8 8;" parent="1" edge="1">
+        <mxCell id="Ghpkstk-haQidT64uBf1-6" value="div.appendChild(entry)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1500" y="854" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ghpkstk-haQidT64uBf1-7" value="restart()" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="514" y="968" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ghpkstk-haQidT64uBf1-8" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="657" y="945" as="sourcePoint" />
-            <mxPoint x="297" y="944" as="targetPoint" />
+            <mxPoint x="460" y="1027" as="sourcePoint" />
+            <mxPoint x="298" y="1026.62" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="pt2JZulDlgeTbI0p0Ly0-97" value="Format and output QR history" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="438" y="911" width="229" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="e4fwFWyISSxIQLE3qlF9-1" value="Alternative" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;width=80;height=20;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
-          <mxGeometry x="188" y="970" width="1320" height="90" as="geometry" />
-        </mxCell>
-        <mxCell id="e4fwFWyISSxIQLE3qlF9-2" value="[If user scans &lt;br&gt;new QR code]" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-          <mxGeometry x="193" y="1010" width="100" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="e4fwFWyISSxIQLE3qlF9-3" value="" style="endArrow=classic;html=1;rounded=0;exitX=1.055;exitY=-0.075;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="297.99999999999994" y="996" as="sourcePoint" />
-            <mxPoint x="1060" y="994" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="e4fwFWyISSxIQLE3qlF9-4" value="Restart button clicked" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="298" y="967" width="169" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="e4fwFWyISSxIQLE3qlF9-5" value="" style="endArrow=classic;html=1;rounded=0;exitX=1.055;exitY=-0.075;exitDx=0;exitDy=0;exitPerimeter=0;dashed=1;" edge="1" parent="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="1056" y="1022.5699999999999" as="sourcePoint" />
-            <mxPoint x="460" y="1023" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="e4fwFWyISSxIQLE3qlF9-6" value="Application restarts" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="283.5" y="1017" width="187.5" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="e4fwFWyISSxIQLE3qlF9-7" value="" style="endArrow=classic;html=1;rounded=0;dashed=1;" edge="1" parent="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="460" y="1045" as="sourcePoint" />
-            <mxPoint x="298" y="1045.43" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="e4fwFWyISSxIQLE3qlF9-8" value="Reset variables" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="474.5" y="1004" width="187.5" height="30" as="geometry" />
+        <mxCell id="Ghpkstk-haQidT64uBf1-9" value="start()" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="345" y="1000" width="60" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
