@@ -1,14 +1,14 @@
 import { restart } from './qr-scanner.js';
 
-//Listen for when the export button (<a>) is clicked
-var exportButton = document.querySelector(".export-top");
-exportButton.addEventListener("click", function() {
+//Listen for when the scan another code button (<a>) is clicked
+var restartButton = document.querySelector(".export-top");
+restartButton.addEventListener("click", function() {
     restart(); //=> qr-scanner.js
 });
 
-//Listen for when the scan another code button (<a>) is clicked
-var restartButton = document.querySelector(".export-bottom");
-restartButton.addEventListener("click", function() {
+//Listen for when the export button (<a>) is clicked
+var exportButton = document.querySelector(".export-bottom");
+exportButton.addEventListener("click", function() {
     //Get the decoded data
     var outputLines = document.querySelectorAll("p.data-container");
     
