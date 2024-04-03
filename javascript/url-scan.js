@@ -1,5 +1,5 @@
 //IMPORTANT - You need to insert the API key below. This only needs to be done once.
-const API_KEY = "6b2ff3cebc36c6d410fe7d1093fc388aac8e2a7ad0db1db2f09e8342400d287c";
+const API_KEY = "INSERT HERE";
 
 var attempts = 0;
 function scanURL(url) {
@@ -327,8 +327,6 @@ function scanDetails(triggeredEngines, url) {
     
     var div = document.getElementById("data-container");
     div.insertBefore(tab,div.lastChild);
-
-    //console.log(triggeredEngines);
 
 }
 
