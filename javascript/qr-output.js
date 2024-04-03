@@ -440,7 +440,7 @@ function outputData(codeData) {
 
         case 8: //Market (Google Play)
             outputType("Google Play Market"); //Output the data type
-            outputLine(codeData.substr(9)); //Cut out identifier ("market://")
+            outputLine(codeData.substr(7)); //Cut out identifier ("market:")
 
             break;
             
