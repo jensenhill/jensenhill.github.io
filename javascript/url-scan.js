@@ -95,7 +95,7 @@ function scanURL(url) {
                     scanUnavailable(); //Inform user that we could not provide a malware scan
                 });
 
-            },3000); //delay 5 secs
+            },3000); //delay 3 secs
 
         })
         .catch(function (error) {
