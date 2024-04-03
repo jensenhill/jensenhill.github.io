@@ -106,7 +106,7 @@ function outputData(codeData) {
         case 5: //Maps
             outputType("Geoloc"); //Output the data type
 
-            codeData = codeData.substr(3); //Cut out the identifier
+            codeData = codeData.substr(4); //Cut out the identifier
             var sections = codeData.split(","); //Split the string at each colon
             
             var geoLat = "Latitude: " + sections[0] + " deg N";
