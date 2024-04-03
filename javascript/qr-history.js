@@ -57,10 +57,14 @@ function displayCodes() {
 function storeCode(currentCode) {
     //Fetch the previously scanned codes from local flat file
     var previousCodes = JSON.parse(localStorage.getItem("previous-codes")) || [];
-    //Append current code onto history of codes
-    previousCodes.push({code : currentCode, time : new Date().toISOString()});
-    //Convert previousCodes to JSON string and store in browser flat file
-    localStorage.setItem("previous-codes",JSON.stringify(previousCodes));
+    
+    //Check that we're not duplicating the last code in history
+    if (currentCode != previousCodes[previousCodes.length - 1].code) {
+        //Append current code onto history of codes
+        previousCodes.push({code : currentCode, time : new Date().toISOString()});
+        //Convert previousCodes to JSON string and store in browser flat file
+        localStorage.setItem("previous-codes",JSON.stringify(previousCodes));
+    }
 }
 
 export { displayCodes,storeCode }; //=> qr-scanner.js
