@@ -24,7 +24,7 @@ The application must be run on a server; it uses JavaScript modules, which requi
   ![image](https://github.com/jensenhill/jensenhill.github.io/assets/91635059/a64c55f3-dfaa-421b-a7a0-b6b0233b3a15)
 
 ## Modifying the program code
-The application requires an API key, which has been omitted from the repository for security reasons.
+The application requires an API key, which has been omitted from the repository for **security reasons**.
 1. Copy the API key from this document on the UoP Sharepoint:
    - https://liveplymouthac-my.sharepoint.com/:w:/g/personal/jensen_hill_students_plymouth_ac_uk/ESDDYyRtrGJKsnG2ZZEVo9wBzKKVVnrH8bjzRIWhwYJ-pQ?e=GRse1Z
    - Note: You must be a member of the Microsoft UoP organisation to access this file.
