@@ -26,7 +26,7 @@ The application must be run on a server; it uses JavaScript modules, which requi
 ## Modifying the program code
 The application requires an API key, which has been omitted from the repository for **security reasons**.
 1. Copy the API key from this document on the UoP Sharepoint:
-   - https://liveplymouthac-my.sharepoint.com/:w:/g/personal/jensen_hill_students_plymouth_ac_uk/ESDDYyRtrGJKsnG2ZZEVo9wBzKKVVnrH8bjzRIWhwYJ-pQ?e=GRse1Z
+   - https://liveplymouthac-my.sharepoint.com/:w:/g/personal/jensen_hill_students_plymouth_ac_uk/ESDDYyRtrGJKsnG2ZZEVo9wBzKKVVnrH8bjzRIWhwYJ-pQ
    - Note: You must be a member of the Microsoft UoP organisation to access this file.
 2. On VS Code, insert the API key into url-scan.js (javascript > url-scan.js) where indicated on line 2.
 
